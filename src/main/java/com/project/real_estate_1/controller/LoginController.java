@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
+    // login test
     @RequestMapping("login")
     public String Login(){
         return "member/join";
