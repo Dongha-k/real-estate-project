@@ -2,7 +2,6 @@ package com.project.real_estate_1.controller;
 
 import com.project.real_estate_1.domain.JoinForm;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
