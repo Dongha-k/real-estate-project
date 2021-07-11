@@ -4,6 +4,7 @@ public class JoinForm {
     private String id;
     private String password;
     private String passwordConfirm;
+
     public JoinForm(String id, String password, String passwordConfirm) {
         this.id = id;
         this.password = password;
