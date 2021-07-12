@@ -2,7 +2,6 @@ package com.project.real_estate_1;
 
 import com.project.real_estate_1.domain.JoinForm;
 import com.project.real_estate_1.entity.Member;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

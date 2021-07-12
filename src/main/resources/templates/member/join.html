@@ -2,19 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href = "css/loginForm.css">
     <title>회원가입</title>
     <style>
-        form{
-            font-size: 15px;
+        .join{
+            border-radius: 10rem;
+            border: 1px solid mediumseagreen;
+            padding: 15px;
+        }
+        .join{
+            background-color: white;
+            color: mediumseagreen;
+            width: 100px;
+        }
+        .join:hover{
+            background-color: mediumseagreen;
+            color: white;
+        }
+        .join{
+            display: flex;
+            justify-content: center;
+            height: 50px;
         }
     </style>
 </head>
 <body>
     <form action="joinSuccess" method="post">
-        아아디<br><input type="text" name="id"><br><br>
-        비밀번호<br><input type="password" name="password"><br><br>
-        비밀번호 확인<br><input type="password" name="passwordConfirm"><br><br>
-        <input type="submit" value = "회원가입"><br><br>
+        <label for = userId>아아디</label><br><input id = "userId" type="text" name="id"><br><br>
+        <label for = userPass>비밀번호</label><br><input id = "userPass" type="password" name="password"><br><br>
+        <label for = userPassConfirm>비밀번호 확인</label><br><input id = "userPassConfirm" type="password" name="passwordConfirm"><br><br>
+        <input class = "join" type="submit" value = "회원가입"><br><br>
     </form>
 </body>
 </html>

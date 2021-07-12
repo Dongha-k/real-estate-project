@@ -1,0 +1,40 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    width: 100%;
+}
+form{
+    font-size: 15px;
+}
+a{
+    text-decoration: none;
+    height: 30px;
+    width: 200px;
+}
+input{
+    height: 30px;
+    width: 200px;
+}
+form{
+    padding: 20px;
+    width: 100%;
+}
+#userId, #userPass, #userPassConfirm{
+    border-color: transparent;
+    border-bottom-color: mediumseagreen;
+}
+#userId:hover{
+    background-color: rgba(128, 128, 128, 0.2);
+}
+#userPass:hover{
+    background-color: rgba(128, 128, 128, 0.2);
+}
+#userPassConfirm:hover{
+    background-color: rgba(128, 128, 128, 0.2);
+}
+label{
+    /*color: mediumseagreen;*/
+}
+
