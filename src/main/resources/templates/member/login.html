@@ -4,34 +4,50 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" type="text/css" href = "css/loginForm.css">
+    <link rel="stylesheet" type="text/css" href = "../../static/css/loginForm.css">
+
     <style>
         .login, .join{
             border-radius: 10rem;
             border: 1px solid mediumseagreen;
-            padding: 15px;
+            /*padding: 15px;*/
         }
-        .login, .join{
+        .login{
             background-color: white;
             color: mediumseagreen;
+            width: 100px;
+        }
+        .join{
+            background-color: mediumseagreen;
+            color: white;
             width: 100px;
         }
         .login:hover{
             background-color: mediumseagreen;
             color: white;
+            text-decoration: underline;
+
+        }
+        .join:hover{
+            text-decoration: underline;
         }
         .login, .join{
-            display: flex;
+            display: inline;
             justify-content: center;
+            text-align: center;
             height: 50px;
+        }
+        input{
+            display: inline;
         }
     </style>
 </head>
 <body>
 <form action="loginSuccess" method="post">
-    <label for = userId>아아디</label><br><input id = "userId" type="text" xname="id"><br><br>
+    <label for = userId>아이디</label><br><input id = "userId" type="text" name="id"><br><br>
     <label for = userPass>비밀번호</label><br><input id = "userPass" type="password" name="password"><br><br>
     <input class = "login" type="submit" value = "로그인">
-    <a href = "join" class = "join">회원가입</a>
+    <input class = "join" type="button" onclick="location.href='join'" value = "회원가입">
 </form>
 </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class LoginController {
+    @Autowired
     private JoinService joinService;
 
     @RequestMapping("login")
@@ -28,10 +29,12 @@ public class LoginController {
         System.out.println("회원가입 요청됨");
         JoinForm joinForm = new JoinForm(id, password, confirmPass);
         System.out.println(joinForm.toString());
+
+
         joinService.joinUser(joinForm);
+
         return joinForm;
     }
-
     @RequestMapping("loginSuccess")
     @ResponseBody
     public LoginForm LoginRequest(@RequestParam(value = "id") String id,

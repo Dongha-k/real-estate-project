@@ -6,7 +6,9 @@ body{
     width: 100%;
 }
 form{
-    font-size: 15px;
+    width: 100%;
+    padding: 20px;
+    font-size: 13px;
 }
 a{
     text-decoration: none;
@@ -17,10 +19,7 @@ input{
     height: 30px;
     width: 200px;
 }
-form{
-    padding: 20px;
-    width: 100%;
-}
+
 #userId, #userPass, #userPassConfirm{
     border-color: transparent;
     border-bottom-color: mediumseagreen;
@@ -38,3 +37,6 @@ label{
     /*color: mediumseagreen;*/
 }
 
+.join, .login{
+    font-weight: bold;
+}
