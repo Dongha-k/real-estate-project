@@ -1,5 +1,7 @@
 package com.project.real_estate_1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,9 @@ public class Member {
     @Column(name = "MEMBER_ID")
     private Long id;
 
+    @Column(unique = true)
     private String userId;
+    @JsonIgnore
     private String password;
 
     public Long getId() {
