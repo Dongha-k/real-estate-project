@@ -56,6 +56,7 @@ public class JoinService{
         member.setPassword(joinForm.getPassword());
         member.setCreateDate(LocalDateTime.now());
         member.setLastModifiedDate(LocalDateTime.now());
+        member.setQualified(false);
         em.persist(member);
     }
 
