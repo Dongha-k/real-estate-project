@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,6 +54,8 @@ public class JoinService{
         Member member = new Member();
         member.setUserId(joinForm.getId());
         member.setPassword(joinForm.getPassword());
+        member.setCreateDate(LocalDateTime.now());
+        member.setLastModifiedDate(LocalDateTime.now());
         em.persist(member);
     }
 
