@@ -1,4 +1,4 @@
-package com.project.real_estate_1.vo;
+package com.project.real_estate_1.dto;
 
 public class ResponseCode {
     private Integer code;

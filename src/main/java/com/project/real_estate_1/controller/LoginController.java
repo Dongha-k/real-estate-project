@@ -3,7 +3,7 @@ package com.project.real_estate_1.controller;
 import com.project.real_estate_1.dto.LoginDto;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.dto.JoinDto;
-import com.project.real_estate_1.vo.ResponseCode;
+import com.project.real_estate_1.dto.ResponseCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -28,7 +29,6 @@ public class Member extends BaseEntity{
     @JoinColumn(name = "LICENSE_ID")
     private License license;
 
-    @OneToMany
-    @JoinColumn(name = "SALESOFFER_ID")
-    private List<SalesOffer> salesOffer;
+    @OneToMany(mappedBy = "member")
+    private List<SalesOffer> salesOffer = new ArrayList<>();
 }
