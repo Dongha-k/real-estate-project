@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,4 +24,11 @@ public class Member extends BaseEntity{
     private String password;
     private boolean qualified; // 공인중개사 자격이 있는지 여부
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LICENSE_ID")
+    private License license;
+
+    @OneToMany
+    @JoinColumn(name = "SALESOFFER_ID")
+    private List<SalesOffer> salesOffer;
 }

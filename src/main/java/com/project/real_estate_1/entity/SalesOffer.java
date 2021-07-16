@@ -18,7 +18,10 @@ public class SalesOffer extends BaseEntity{
     @Column(name = "SALESOFFER_ID")
     private Long id;
     private Long sale_price;
+    private Long floor; // 매물 층 수
+    private Long max_floor; // 건물 총 층수
+    private String zipcode; // 도로명 주소
     @Embedded
-    private Location location;
+    private Location location; // 위도, 경도 좌표
 
 }

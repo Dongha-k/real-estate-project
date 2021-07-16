@@ -1,12 +1,11 @@
 package com.project.real_estate_1.service.member;
 
-import com.project.real_estate_1.domain.JoinForm;
+import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.entity.Member;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -50,10 +49,10 @@ public class JoinService{
         return false;
     }
 
-    public void joinUser(JoinForm joinForm) throws SQLException {
+    public void joinUser(JoinDto joinDto) throws SQLException {
         Member member = new Member();
-        member.setUserId(joinForm.getId());
-        member.setPassword(joinForm.getPassword());
+        member.setUserId(joinDto.getId());
+        member.setPassword(joinDto.getPassword());
         member.setCreateDate(LocalDateTime.now());
         member.setLastModifiedDate(LocalDateTime.now());
         member.setQualified(false);
