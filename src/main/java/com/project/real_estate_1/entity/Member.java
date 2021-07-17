@@ -24,11 +24,11 @@ public class Member extends BaseEntity{
     @JsonIgnore
     private String password;
     private boolean qualified; // 공인중개사 자격이 있는지 여부
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "LICENSE_ID")
     private License license;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<SalesOffer> salesOffer = new ArrayList<>();
 }

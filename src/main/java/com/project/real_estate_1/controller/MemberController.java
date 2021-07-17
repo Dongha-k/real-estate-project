@@ -11,12 +11,12 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/member/get")
-public class MemberCotroller {
+public class MemberController {
     @Autowired
     private MemberService memberService;
 
     @GetMapping("/")
-    public List<Member> getAllMember(){
+    public List<Member> getAllMembers(){
         return memberService.findAllMember();
     }
 

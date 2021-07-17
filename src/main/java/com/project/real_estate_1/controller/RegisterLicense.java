@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/register")
@@ -19,11 +20,13 @@ public class RegisterLicense {
         @Valid @RequestBody CertRegisterDto certRegisterDto) {
         System.out.println("공인중개사 자격 요청들어옴");
         System.out.println(certRegisterDto.toString());
-        if(memberService.registerCertification(userId, certRegisterDto)){
-            return new ResponseCode(0);
-        }
-        else{
-            return new ResponseCode(1);
+        try {
+            if (memberService.registerCertification(userId, certRegisterDto)) return new ResponseCode(0);
+            else return new ResponseCode(1);
+        } catch (SQLException e){
+            return new ResponseCode(98);
+        } catch (Exception e){
+            return new ResponseCode(99);
         }
     }
 }

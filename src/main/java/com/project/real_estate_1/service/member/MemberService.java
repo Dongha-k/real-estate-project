@@ -1,6 +1,7 @@
 package com.project.real_estate_1.service.member;
 
 import com.project.real_estate_1.dto.CertRegisterDto;
+import com.project.real_estate_1.entity.License;
 import com.project.real_estate_1.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,22 +35,38 @@ public class MemberService {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public boolean registerCertification(String userId, CertRegisterDto certRegisterDto){
+    public boolean registerCertification(String userId, CertRegisterDto certRegisterDto) throws SQLException {
         // 이미 자격이 있으면, false 리턴
         // 자격이 없으면 자격 등록 후 true 리턴
         Long id = findByUserId(userId).getId();
+        System.out.println("id = " + id);
         Member findMember = em.find(Member.class, id);
+        System.out.println("findMember = " + findMember);
+        System.out.println(certRegisterDto.toString());
+        String certURL = certRegisterDto.getCertificateURL();
+        String certNum = certRegisterDto.getCertificationNumber();
+
         if(findMember.isQualified() == true) return false;
         else {
             findMember.setQualified(true);
-            findMember.getLicense().setCertificationNumber(certRegisterDto.getCertificationNumber());
-            findMember.getLicense().setCertificateURL(certRegisterDto.getCertificateURL());
-            findMember.getLicense().setImgURL(null);
-            findMember.getLicense().setSelf_introduction("등록된 소개가 없습니다.");
-            findMember.getLicense().setCreateDate(LocalDateTime.now());
-            findMember.getLicense().setLastModifiedDate(LocalDateTime.now());
+
+            License license = new License();
+            license.setImgURL(null);
+            license.setCreateDate(LocalDateTime.now());
+            license.setLastModifiedDate(LocalDateTime.now());
+            license.setSelf_introduction("소개가 등록되어 있지 않습니다.");
+            license.setCertificateURL(certURL);
+            license.setCertificationNumber(certNum);
+            license.setMember(findMember);
+            em.persist(license);
+            findMember.setLicense(license);
             return true;
         }
     }
 
+    public List<Member> findAllQualifiedMembers(){
+        List<Member> QualifiedMembers = em.createQuery("select m from Member m where m.license is not null")
+                .getResultList();
+        return QualifiedMembers;
+    }
 }
