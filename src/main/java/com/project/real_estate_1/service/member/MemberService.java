@@ -9,9 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @Service
@@ -25,12 +27,17 @@ public class MemberService {
     public MemberService(){
     }
 
-    public Member findByUserId(String userId){
-        Member findMember = em.createQuery("select m from Member m where m.userId = ?1", Member.class)
+    public Member findByUserId(String userId) throws SQLException{
+        if(!joinService.findUser(userId)) return null;
+
+        Optional<Member> findMember = em.createQuery("select m from Member m where m.userId = ?1", Member.class)
                 .setParameter(1, userId)
-                .getResultList().get(0);
-        return findMember;
+                .getResultList()
+                .stream()
+                .findFirst();
+        return findMember.get();
     }
+
     public List<Member> findAllMember(){
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }

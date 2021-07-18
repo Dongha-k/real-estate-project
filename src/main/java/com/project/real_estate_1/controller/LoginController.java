@@ -1,10 +1,15 @@
 package com.project.real_estate_1.controller;
 
 import com.project.real_estate_1.dto.LoginDto;
+import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.dto.ResponseCode;
+import com.project.real_estate_1.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +19,8 @@ import java.sql.SQLException;
 public class LoginController {
     @Autowired
     private JoinService joinService;
+    @Autowired
+    private MemberService memberService;
 
     @RequestMapping("login")
     public String Login(){
@@ -26,50 +33,115 @@ public class LoginController {
 
     @PostMapping("/joinRequest")
     @ResponseBody
-    public ResponseCode JoinRequest(@Valid @RequestBody JoinDto joinDto){
+    public ResponseEntity<Member> JoinRequest(@Valid @RequestBody JoinDto joinDto){
         System.out.println("회원가입 요청됨");
         System.out.println(joinDto.toString());
         String id = joinDto.getId();
         String password = joinDto.getPassword();
         String confirmPass = joinDto.getPasswordConfirm();
-        if(id.trim().isEmpty() || id == null) return new ResponseCode(1);
-        if(password.trim().isEmpty() || password == null) return new ResponseCode(2);
-        if(confirmPass.trim().isEmpty() || password == null) return new ResponseCode(3);
-        try{
-            if(joinService.findUser(id)) return new ResponseCode(4);
-        } catch (SQLException e){
-            return new ResponseCode(98);
+        HttpHeaders httpHeaders = new HttpHeaders();
+
+        if(id.trim().isEmpty() || id == null) {
+            httpHeaders.add("code", "01");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
-        if(!password.equals(confirmPass)) return new ResponseCode(5);
-        if(!joinService.checkId(id)) return new ResponseCode(6);
-        if(!joinService.checkPass(password)) return new ResponseCode(7);
+        if(password.trim().isEmpty() || password == null) {
+            httpHeaders.add("code", "02");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(confirmPass.trim().isEmpty() || password == null) {
+            httpHeaders.add("code", "03");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
         try{
-            joinService.joinUser(joinDto);
+            if(joinService.findUser(id)) {
+                httpHeaders.add("code", "04");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
         } catch (SQLException e){
-            return new ResponseCode(98);
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(!password.equals(confirmPass)) {
+            httpHeaders.add("code", "05");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(!joinService.checkId(id)) {
+            httpHeaders.add("code", "06");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(!joinService.checkPass(password)) {
+            httpHeaders.add("code", "07");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        String phoneNumber = joinDto.getPhoneNumber();
+        String name = joinDto.getName();
+        String nickname = joinDto.getNickname();
+        if(phoneNumber.trim().isEmpty()) {
+            httpHeaders.add("code", "08");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(name.trim().isEmpty()) {
+            httpHeaders.add("code", "09");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(nickname.trim().isEmpty()) {
+            httpHeaders.add("code", "10");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        if(!joinService.checkPhoneNumber(phoneNumber)) {
+            httpHeaders.add("code", "11");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        Member newer;
+        try{
+            newer = joinService.joinUser(joinDto);
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         } catch (Exception e){
-            return new ResponseCode(99);
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
-        return new ResponseCode(0);
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(newer, httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/loginRequest")
     @ResponseBody
-    public ResponseCode LoginRequest(@Valid @RequestBody LoginDto loginDto){
+    public ResponseEntity<Member> LoginRequest(@Valid @RequestBody LoginDto loginDto){
         System.out.println("로그인 요청됨");
         System.out.println(loginDto.toString());
         String id = loginDto.getId();
         String password = loginDto.getPassword();
-        if(id.trim().isEmpty() || id == null) return new ResponseCode(1);
-        if(password.trim().isEmpty() || password == null) return new ResponseCode(2);
-        try{
-            if(!joinService.findUser(id)) return new ResponseCode(3);
-            if(!joinService.findPass(id, password)) return new ResponseCode(4);
-        } catch (SQLException e){
-            return new ResponseCode(98);
-        } catch(Exception e){
-            return new ResponseCode(99);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        if(id.trim().isEmpty() || id == null) {
+            httpHeaders.add("code", "01");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
-        return new ResponseCode(0);
+        if(password.trim().isEmpty() || password == null) {
+            httpHeaders.add("code", "02");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        Member existingMember;
+        try{
+            if(!joinService.findUser(id)){
+                httpHeaders.add("code", "03");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            if(!joinService.findPass(id, password)) {
+                httpHeaders.add("code", "04");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            existingMember = memberService.findByUserId(id);
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch(Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(existingMember, httpHeaders, HttpStatus.OK);
     }
 }

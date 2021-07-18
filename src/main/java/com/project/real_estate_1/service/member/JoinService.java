@@ -49,18 +49,21 @@ public class JoinService{
         return false;
     }
 
-    public void joinUser(JoinDto joinDto) throws SQLException {
+    public Member joinUser(JoinDto joinDto) throws SQLException {
         Member member = new Member();
         member.setUserId(joinDto.getId());
         member.setPassword(joinDto.getPassword());
         member.setCreateDate(LocalDateTime.now());
         member.setLastModifiedDate(LocalDateTime.now());
+        member.setName(joinDto.getName());
+        member.setPhoneNumber(joinDto.getPhoneNumber());
+        member.setNickname(joinDto.getNickname());
         member.setQualified(false);
         em.persist(member);
+        return member;
     }
 
     public boolean checkId(String id){
-
         String regex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
         // 시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
         Pattern pattern = Pattern.compile(regex);
@@ -76,5 +79,24 @@ public class JoinService{
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.find();
+    }
+
+    public boolean checkPhoneNumber(String phoneNumber){
+        // 전화번호 ex) 01086149799
+        if(phoneNumber.length() < 10 || phoneNumber.length() > 11){
+            System.out.println("전화번호 : 자릿수 초과");
+            return false;
+        } else if(phoneNumber.charAt(0)  != '0' || phoneNumber.charAt(1) != '1'){
+            System.out.println("전화번호 : 01로 사직하지 않음");
+            return false;
+        } else{
+            for(int i = 2 ; i < phoneNumber.length() ; i ++){
+                if(phoneNumber.charAt(i) < '0' || phoneNumber.charAt(i) >'9'){
+                    System.out.println("전화번호 : 숫자이외 문자가 전화번호에 포함되어 있음");
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
