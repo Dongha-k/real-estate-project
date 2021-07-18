@@ -1,4 +1,4 @@
-package com.project.real_estate_1.controller.storage;
+package com.project.real_estate_1.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;

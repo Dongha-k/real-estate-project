@@ -1,6 +1,6 @@
 package com.project.real_estate_1.controller;
 
-import com.project.real_estate_1.controller.storage.StorageService;
+import com.project.real_estate_1.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -24,10 +26,17 @@ public class FileUploadController {
         this.storageService = storageService;
     }
 
-    @GetMapping("")
-    public String goUploadForm(){
+    @GetMapping("/")
+    public String listUploadedFiles(Model model) throws IOException {
+
+        model.addAttribute("files", storageService.loadAll().map(
+                path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                        "serveFile", path.getFileName().toString()).build().toUri().toString())
+                .collect(Collectors.toList()));
+
         return "uploadForm";
     }
+
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes){//RedirectAttribute: 리타이렉트보낼때, 결과값을 저장할 객체

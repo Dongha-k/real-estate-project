@@ -1,4 +1,4 @@
-package com.project.real_estate_1.controller.storage;
+package com.project.real_estate_1.storage;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

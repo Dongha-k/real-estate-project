@@ -1,17 +1,12 @@
 package com.project.real_estate_1;
 
-import com.project.real_estate_1.controller.storage.StorageProperties;
-import com.project.real_estate_1.controller.storage.StorageService;
+import com.project.real_estate_1.storage.StorageProperties;
+import com.project.real_estate_1.storage.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)

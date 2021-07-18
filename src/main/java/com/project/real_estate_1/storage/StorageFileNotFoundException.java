@@ -1,4 +1,4 @@
-package com.project.real_estate_1.controller.storage;
+package com.project.real_estate_1.storage;
 
 public class StorageFileNotFoundException extends StorageException{
     public StorageFileNotFoundException(String message) {
