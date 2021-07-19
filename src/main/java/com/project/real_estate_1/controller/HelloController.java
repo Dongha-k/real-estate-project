@@ -14,6 +14,7 @@ public class HelloController {
     public String hello(){
         return "hello";
     }
+
     @RequestMapping("helloworld")
     @ResponseBody
     public ResponseEntity<Member> getMember(){

@@ -6,14 +6,17 @@ import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.dto.ResponseCode;
 import com.project.real_estate_1.service.member.MemberService;
+import com.project.real_estate_1.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.nio.file.Path;
 import java.sql.SQLException;
 @Controller
 public class LoginController {
@@ -21,6 +24,12 @@ public class LoginController {
     private JoinService joinService;
     @Autowired
     private MemberService memberService;
+
+    private StorageService storageService;
+
+    public LoginController(StorageService storageService){
+        this.storageService = storageService;
+    }
 
     @RequestMapping("login")
     public String Login(){
@@ -30,6 +39,13 @@ public class LoginController {
     public String join(){
         return "member/join";
     }
+    @RequestMapping("join2")
+    public String join2(){return "member/join_revised";}
+
+
+
+
+
 
     @PostMapping("/joinRequest")
     @ResponseBody
@@ -40,6 +56,10 @@ public class LoginController {
         String password = joinDto.getPassword();
         String confirmPass = joinDto.getPasswordConfirm();
         HttpHeaders httpHeaders = new HttpHeaders();
+//        String fileName =storageService.store(joinDto.getFile());
+//        Path path = storageService.load(fileName);
+//        String imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+//                "serveFile", path.getFileName().toString()).build().toUri().toString();
 
         if(id.trim().isEmpty() || id == null) {
             httpHeaders.add("code", "01");
@@ -95,7 +115,7 @@ public class LoginController {
         }
         Member newer;
         try{
-            newer = joinService.joinUser(joinDto);
+            newer = joinService.joinUser(joinDto, "");
         } catch (SQLException e){
             httpHeaders.add("code", "98");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
@@ -106,6 +126,11 @@ public class LoginController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(newer, httpHeaders, HttpStatus.OK);
     }
+
+
+
+
+
 
     @PostMapping("/loginRequest")
     @ResponseBody

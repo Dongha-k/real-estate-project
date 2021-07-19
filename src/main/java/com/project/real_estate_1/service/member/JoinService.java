@@ -49,7 +49,7 @@ public class JoinService{
         return false;
     }
 
-    public Member joinUser(JoinDto joinDto) throws SQLException {
+    public Member joinUser(JoinDto joinDto, String imgUrl) throws SQLException {
         Member member = new Member();
         member.setUserId(joinDto.getId());
         member.setPassword(joinDto.getPassword());
@@ -59,6 +59,7 @@ public class JoinService{
         member.setPhoneNumber(joinDto.getPhoneNumber());
         member.setNickname(joinDto.getNickname());
         member.setQualified(false);
+        member.setImgUrl(imgUrl);
         em.persist(member);
         return member;
     }

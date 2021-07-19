@@ -17,19 +17,22 @@ import java.util.stream.Stream;
 @Service
 public class FileSystemStorageService implements StorageService{
     private final Path rootLocation;
-
+    private static Integer imgCnt = 0;
     @Autowired
     public FileSystemStorageService(StorageProperties properties){
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
     @Override
-    public void store(MultipartFile file){
+    public String store(MultipartFile file){
         try{
             if(file.isEmpty()){
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            String newImgName = (++imgCnt).toString() + ".png";
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(newImgName));
+//            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+            return newImgName;
         } catch (IOException e){
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }

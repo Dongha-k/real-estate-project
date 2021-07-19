@@ -4,6 +4,7 @@ import com.project.real_estate_1.dto.MemberGetDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
+import com.project.real_estate_1.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,22 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+
     @PostMapping("/all")
-    public List<Member> getAllMembers(){
-        return memberService.findAllMember();
+    public ResponseEntity<List<Member>> getAllMembers(){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<Member> members = null;
+        try{
+            members = memberService.findAllMember();
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(members, httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/one")

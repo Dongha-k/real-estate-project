@@ -38,7 +38,7 @@ public class MemberService {
         return findMember.get();
     }
 
-    public List<Member> findAllMember(){
+    public List<Member> findAllMember() throws SQLException{
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 

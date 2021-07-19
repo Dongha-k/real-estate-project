@@ -4,6 +4,7 @@ import com.project.real_estate_1.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,19 +40,25 @@ public class FileUploadController {
 
     @PostMapping("/")
     public String handleFileUpload(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes){//RedirectAttribute: 리타이렉트보낼때, 결과값을 저장할 객체
-        System.out.println("upload 요청 들어옴");
-        storageService.store(file);
-        redirectAttributes.addFlashAttribute("message",
+                RedirectAttributes redirectAttributes){//RedirectAttribute: 리타이렉트보낼때, 결과값을 저장할 객체
+            System.out.println("upload 요청 들어옴");
+            storageService.store(file);
+            redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
         return "redirect:";
     }
 
-    @GetMapping("/files/{filename:.+}")
+    @GetMapping(value = "/files/{filename:.+}",
+            produces = MediaType.IMAGE_PNG_VALUE
+    )
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename){
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\" ").body(file);
+                "inline").body(file);
+
+//        무조건 다운로드 하는 방법
+//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+//                "attachment; filename=\"" + file.getFilename() + "\" ").body(file);
     }
 }

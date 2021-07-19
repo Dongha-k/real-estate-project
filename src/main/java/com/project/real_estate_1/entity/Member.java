@@ -27,6 +27,7 @@ public class Member extends BaseEntity{
     private String phoneNumber; // 핸드폰 번호
     private String name; // 성명
     private String nickname; // 닉네임
+    private String imgUrl; // 이미지 url
 
     @OneToOne
     @JoinColumn(name = "LICENSE_ID")
