@@ -5,21 +5,15 @@
     <title>회원가입 서비스</title>
 </head>
 <body>
-    <form id = "form" name = "form" method="post">
+    <form id = "form" action="joinRequest" method="post" enctype="multipart/form-data">
     <label for = "userId">아아디</label><br><input id = "userId" type="text" name="id"><br><br>
     <label for = "userPass">비밀번호</label><br><input id = "userPass" type="password" name="password"><br><br>
     <label for = "userPassConfirm">비밀번호 확인</label><br><input id = "userPassConfirm" type="password" name="passwordConfirm"><br><br>
     <label for = "phoneNumber">휴대폰 번호</label><br><input id = "phoneNumber" type="text" name="phoneNumber"><br><br>
     <label for = "name">이름</label><br><input id = "name" type="text" name="name"><br><br>
     <label for = "nickname">닉네임</label><br><input id = "nickname" type="text" name="nickname"><br><br>
-<!--    프로필 사진 등록 : <input type="file" name="file" />-->
-    <button id = "submit" type = "button">회원가입</button>
+    프로필 사진 등록 : <input type="file" name="file" />
+    <input type = "submit" value="회원가입">
     </form>
 </body>
 </html>
-<!--private String id;-->
-<!--private String password;-->
-<!--private String passwordConfirm;-->
-<!--private String phoneNumber;-->
-<!--private String name;-->
-<!--private String nickname;-->

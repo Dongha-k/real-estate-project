@@ -16,5 +16,4 @@ public class JoinDto {
     private String phoneNumber;
     private String name;
     private String nickname;
-//    private MultipartFile file; // 이미지 사진 파일 데이터
 }

@@ -10,9 +10,11 @@ import com.project.real_estate_1.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -35,31 +37,29 @@ public class LoginController {
     public String Login(){
         return "member/login";
     }
+
     @RequestMapping("join")
     public String join(){
         return "member/join";
     }
+
     @RequestMapping("join2")
     public String join2(){return "member/join_revised";}
 
-
-
-
-
-
-    @PostMapping("/joinRequest")
+    @PostMapping (value = "/joinRequest")
     @ResponseBody
-    public ResponseEntity<Member> JoinRequest(@Valid @RequestBody JoinDto joinDto){
+    public ResponseEntity<Member> JoinRequest(@ModelAttribute JoinDto joinDto,
+                                              @RequestPart(required = false) MultipartFile file){
         System.out.println("회원가입 요청됨");
         System.out.println(joinDto.toString());
         String id = joinDto.getId();
         String password = joinDto.getPassword();
         String confirmPass = joinDto.getPasswordConfirm();
         HttpHeaders httpHeaders = new HttpHeaders();
-//        String fileName =storageService.store(joinDto.getFile());
-//        Path path = storageService.load(fileName);
-//        String imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-//                "serveFile", path.getFileName().toString()).build().toUri().toString();
+        String fileName =storageService.store(file);
+        Path path = storageService.load(fileName);
+        String imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                "serveFile", path.getFileName().toString()).build().toUri().toString();
 
         if(id.trim().isEmpty() || id == null) {
             httpHeaders.add("code", "01");
@@ -115,7 +115,7 @@ public class LoginController {
         }
         Member newer;
         try{
-            newer = joinService.joinUser(joinDto, "");
+            newer = joinService.joinUser(joinDto, imgUrl);
         } catch (SQLException e){
             httpHeaders.add("code", "98");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
@@ -126,12 +126,6 @@ public class LoginController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(newer, httpHeaders, HttpStatus.OK);
     }
-
-
-
-
-
-
     @PostMapping("/loginRequest")
     @ResponseBody
     public ResponseEntity<Member> LoginRequest(@Valid @RequestBody LoginDto loginDto){
