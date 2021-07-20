@@ -9,6 +9,6 @@ import lombok.*;
 @Builder
 @ToString
 public class CertRegisterDto {
-    private String certificateURL; // 자격증 사진 주소
+    private String userId; // 유저 아이디
     private String certificationNumber; // 자격증 번호
 }

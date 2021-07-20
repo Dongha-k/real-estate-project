@@ -32,7 +32,10 @@ public class LoginController {
     public LoginController(StorageService storageService){
         this.storageService = storageService;
     }
-
+    @RequestMapping("register")
+    public String Register(){
+        return "member/register";
+    }
     @RequestMapping("login")
     public String Login(){
         return "member/login";
@@ -56,11 +59,14 @@ public class LoginController {
         String password = joinDto.getPassword();
         String confirmPass = joinDto.getPasswordConfirm();
         HttpHeaders httpHeaders = new HttpHeaders();
-        String fileName =storageService.store(file);
-        Path path = storageService.load(fileName);
-        String imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                "serveFile", path.getFileName().toString()).build().toUri().toString();
 
+        String imgUrl = "";
+        if(!file.isEmpty()) {
+            String fileName = storageService.store(file);
+            Path path = storageService.load(fileName);
+            imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                    "serveFile", path.getFileName().toString()).build().toUri().toString();
+        }
         if(id.trim().isEmpty() || id == null) {
             httpHeaders.add("code", "01");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
@@ -126,9 +132,12 @@ public class LoginController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(newer, httpHeaders, HttpStatus.OK);
     }
+
+
+
     @PostMapping("/loginRequest")
     @ResponseBody
-    public ResponseEntity<Member> LoginRequest(@Valid @RequestBody LoginDto loginDto){
+    public ResponseEntity<Member> LoginRequest(@ModelAttribute LoginDto loginDto){
         System.out.println("로그인 요청됨");
         System.out.println(loginDto.toString());
         String id = loginDto.getId();

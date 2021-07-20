@@ -42,15 +42,15 @@ public class MemberService {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public boolean registerCertification(String userId, CertRegisterDto certRegisterDto) throws SQLException {
+    public boolean registerCertification(CertRegisterDto certRegisterDto, String imgUrl) throws SQLException {
         // 이미 자격이 있으면, false 리턴
         // 자격이 없으면 자격 등록 후 true 리턴
+        String userId = certRegisterDto.getUserId();
         Long id = findByUserId(userId).getId();
-        System.out.println("id = " + id);
         Member findMember = em.find(Member.class, id);
         System.out.println("findMember = " + findMember);
         System.out.println(certRegisterDto.toString());
-        String certURL = certRegisterDto.getCertificateURL();
+        String certURL = imgUrl;
         String certNum = certRegisterDto.getCertificationNumber();
 
         if(findMember.isQualified() == true) return false;
@@ -58,7 +58,7 @@ public class MemberService {
             findMember.setQualified(true);
 
             License license = new License();
-            license.setImgURL(null);
+            license.setImgURL(certURL);
             license.setCreateDate(LocalDateTime.now());
             license.setLastModifiedDate(LocalDateTime.now());
             license.setSelf_introduction("소개가 등록되어 있지 않습니다.");

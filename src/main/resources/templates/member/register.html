@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>자격증 등록 페이지</title>
+</head>
+<body>
+    <form action="/register/certification" method="POST" enctype="multipart/form-data">
+        <label for = "userId"> 등록할 아이디 입력</label><br><br><input type="text" id = "userId" name = "userId"><br><br>
+        <label for = "certificationNumber">자격증 번호 입력</label><br><br><input type = "text" id = "certificationNumber" name = "certificationNumber"><br><br>
+        <label for = "file">자격증 사진 업로드</label><br><br><input type="file" name = "file" id = "file"><br><br>
+        <input type="submit" value="자격등록하기">
+    </form>
+</body>
+</html>

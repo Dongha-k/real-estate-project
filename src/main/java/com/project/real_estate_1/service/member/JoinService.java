@@ -65,8 +65,9 @@ public class JoinService{
     }
 
     public boolean checkId(String id){
-        String regex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
+//        String regex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
         // 시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
+        String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";// 이메일 정규표현식
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(id);
         return matcher.find();
