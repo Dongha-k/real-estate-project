@@ -1,5 +1,6 @@
 package com.project.real_estate_1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,5 +19,6 @@ public class SalesOfferURL extends BaseEntity{
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SALESOFFER_ID")
+    @JsonIgnore
     private SalesOffer salesOffer;
 }

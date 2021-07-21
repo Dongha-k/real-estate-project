@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBui
 
 import java.nio.file.Path;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -72,14 +73,15 @@ public class WriterController {
         }
         // id 존재 유무 파악 끝
 
-        List<String> urls = null;
-
+        List<String> urls = new ArrayList<>();
+        System.out.println(fileList.size());
+        String imgUrl = "";
         for(MultipartFile file : fileList){
-            String imgUrl = "";
             String fileName = storageService.store(file);
             Path path = storageService.load(fileName);
             imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                     "serveFile", path.getFileName().toString()).build().toUri().toString();
+            System.out.println("imgUrl = " + imgUrl);
             urls.add(imgUrl);
         }
         try{

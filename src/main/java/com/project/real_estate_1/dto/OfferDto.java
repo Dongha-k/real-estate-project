@@ -42,7 +42,7 @@ public class OfferDto {
     private boolean contain_parking; // 주차비 여부
 
     // 가계약금 비율 + 계약금 비율 + 중도금 비율 + 잔금 비율 = 100%
-    private Integer Provisional_down_pay_per; // 가계약금 비율
+    private Integer provisional_down_pay_per; // 가계약금 비율
     private Integer down_pay_per; // 계약금 비율
     private Integer intermediate_pay_per; // 중도금 비율
     private Integer balance_per; // 잔금 비율
