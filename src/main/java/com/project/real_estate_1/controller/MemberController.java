@@ -23,7 +23,7 @@ public class MemberController {
     private MemberService memberService;
 
 
-    @PostMapping("/all")
+    @RequestMapping(value = "/all", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<List<Member>> getAllMembers(){
         HttpHeaders httpHeaders = new HttpHeaders();
         List<Member> members = null;
@@ -41,7 +41,7 @@ public class MemberController {
     }
 
     @PostMapping("/one")
-    public ResponseEntity<Member> getMemberInfo(@Valid @RequestBody MemberGetDto memberGetDto){
+    public ResponseEntity<Member> getMemberInfo(@ModelAttribute MemberGetDto memberGetDto){
         String userId = memberGetDto.getUserId();
         HttpHeaders httpHeaders = new HttpHeaders();
         if(userId.trim().isEmpty() || userId == null){

@@ -19,8 +19,8 @@ public abstract class SalesOffer extends BaseEntity{
     private Long id;
 
     private String apartmentName; // 아파트 명
-    private Integer dong; // 동
-    private Integer ho; // 호수
+    private String dong; // 동
+    private String ho; // 호수
     private Integer net_leaseable_area; // 전용면적
     private Integer leaseable_area; // 임대면적(공급면적)
 
