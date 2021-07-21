@@ -2,6 +2,7 @@ package com.project.real_estate_1.entity;
 import lombok.*;
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 // 매물 정보
 @Entity
@@ -9,24 +10,47 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@DiscriminatorColumn
-public class SalesOffer extends BaseEntity{
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "SALE_TYPE")
+public abstract class SalesOffer extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SALESOFFER_ID")
     private Long id;
 
-    private String apartmentName; // 아파트 이름
+    private String apartmentName; // 아파트 명
     private Integer dong; // 동
     private Integer ho; // 호수
     private Integer net_leaseable_area; // 전용면적
-    private Integer leaseable_area; // 임대면적
+    private Integer leaseable_area; // 임대면적(공급면적)
+
+    private String admin_expenses; // 관리비
 
 
-    @Enumerated(EnumType.STRING)
-    private SaleType saleType; // 거래 유형 : 월세, 전세, 매매
+    @ElementCollection
+    @CollectionTable(name = "COVER_SERVICE", joinColumns = @JoinColumn(name = "SALESOFFER_ID"))
+    private Set<Admin_type> coverable_service; // 관리비에 포함되는 서비스
+
+    private Integer Provisional_down_pay_per; // 가계약금 비율
+    private Integer down_pay_per; // 계약금 비율
+    private Integer intermediate_pay_per; // 중도금 비율
+    private Integer balance_per; // 잔금 비율
+    // 가계약금 비율 + 계약금 비율 + 중도금 비율 + 잔금 비율 = 100%
+
+    private Integer year; // 준공일 년도
+    private Integer month; // 준공일 월
+
+    // 옵션(중문, 에어컨, 냉장고, 김치냉장고, 붙박이장 등)
+    private boolean middle_door;
+    private boolean air_conditioner;
+    private boolean refrigerator;
+    private boolean kimchi_refrigerator;
+    private boolean closet;
+
+    private String short_description; // 짧은 집 설명
+    private String detail_description; // 자세한 집 설명
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
