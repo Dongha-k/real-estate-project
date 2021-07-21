@@ -17,16 +17,16 @@ public class SalesOffer extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "SALESOFFER_ID")
     private Long id;
-    private String zipcode; // 법정동 주소
-    private String detailAddressDong; // 동
-    private String detailAddressHo; // 호
-    private Integer area; // 면적 (평수)
+
+    private String apartmentName; // 아파트 이름
+    private Integer dong; // 동
+    private Integer ho; // 호수
+    private Integer net_leaseable_area; // 전용면적
+    private Integer leaseable_area; // 임대면적
+
+
     @Enumerated(EnumType.STRING)
-    private SaleType saleType; // 매매, 전세, 월세 인지
-
-    private Long sale_price; // 매물 가격
-
-
+    private SaleType saleType; // 거래 유형 : 월세, 전세, 매매
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
