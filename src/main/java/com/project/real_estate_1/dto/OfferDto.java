@@ -17,6 +17,23 @@ public class OfferDto {
     private Integer net_leaseable_area; // 전용면적
     private Integer leaseable_area; // 임대면적(공급면적)
 
+    private String type;
+    // S : 매매
+    // M : 월세
+    // C : 전세
+
+    private Long sale_price;
+
+    private Long monthly_price;
+    private Long monthly_deposit;
+
+    private Long deposit;
+
+
+
+
+
+
     private Long admin_expenses; // 관리비
     private boolean contain_electric; // 관리비에 전기세 포함여부
     private boolean contain_internet;// 인터넷 여부

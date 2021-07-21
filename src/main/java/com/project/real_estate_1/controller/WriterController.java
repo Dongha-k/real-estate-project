@@ -7,13 +7,18 @@ import com.project.real_estate_1.entity.SalesOfferURL;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.service.offer_service.WriteService;
+import com.project.real_estate_1.storage.FileSystemStorageService;
+import com.project.real_estate_1.storage.StorageService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -28,6 +33,12 @@ public class WriterController {
     private JoinService joinService;
     @Autowired
     private MemberService memberService;
+    private StorageService storageService;
+
+    public WriterController(StorageService storageService){
+        this.storageService = storageService;
+    }
+
 
     @PostMapping("/board")
     public ResponseEntity<SalesOffer> writeHandler(@ModelAttribute OfferDto offerDto,
@@ -61,9 +72,25 @@ public class WriterController {
         }
         // id 존재 유무 파악 끝
 
+        List<String> urls = null;
 
-
-
+        for(MultipartFile file : fileList){
+            String imgUrl = "";
+            String fileName = storageService.store(file);
+            Path path = storageService.load(fileName);
+            imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                    "serveFile", path.getFileName().toString()).build().toUri().toString();
+            urls.add(imgUrl);
+        }
+        try{
+            salesOffer = writeService.write(offerDto, urls);
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(salesOffer, httpHeaders, HttpStatus.OK);
     }
