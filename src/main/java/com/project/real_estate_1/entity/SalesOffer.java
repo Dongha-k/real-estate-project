@@ -24,21 +24,20 @@ public abstract class SalesOffer extends BaseEntity{
     private Integer net_leaseable_area; // 전용면적
     private Integer leaseable_area; // 임대면적(공급면적)
 
-    private String admin_expenses; // 관리비
+    private Long admin_expenses; // 관리비
 
 
     @ElementCollection
     @CollectionTable(name = "COVER_SERVICE", joinColumns = @JoinColumn(name = "SALESOFFER_ID"))
     private Set<Admin_type> coverable_service; // 관리비에 포함되는 서비스
 
+
+    // 가계약금 비율 + 계약금 비율 + 중도금 비율 + 잔금 비율 = 100%
     private Integer Provisional_down_pay_per; // 가계약금 비율
     private Integer down_pay_per; // 계약금 비율
     private Integer intermediate_pay_per; // 중도금 비율
     private Integer balance_per; // 잔금 비율
-    // 가계약금 비율 + 계약금 비율 + 중도금 비율 + 잔금 비율 = 100%
 
-    private Integer year; // 준공일 년도
-    private Integer month; // 준공일 월
 
     // 옵션(중문, 에어컨, 냉장고, 김치냉장고, 붙박이장 등)
     private boolean middle_door;
