@@ -3,13 +3,10 @@ package com.project.real_estate_1.controller;
 import com.project.real_estate_1.dto.OfferDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.entity.SalesOffer;
-import com.project.real_estate_1.entity.SalesOfferURL;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.service.offer_service.WriteService;
-import com.project.real_estate_1.storage.FileSystemStorageService;
 import com.project.real_estate_1.storage.StorageService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -82,7 +79,6 @@ public class WriterController {
             Path path = storageService.load(fileName);
             imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                     "serveFile", path.getFileName().toString()).build().toUri().toString();
-            System.out.println("imgUrl = " + imgUrl);
             urls.add(imgUrl);
         }
         try{
@@ -92,6 +88,7 @@ public class WriterController {
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");

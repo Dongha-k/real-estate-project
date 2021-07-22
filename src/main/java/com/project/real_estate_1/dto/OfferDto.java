@@ -29,11 +29,6 @@ public class OfferDto {
 
     private Long deposit;
 
-
-
-
-
-
     private Long admin_expenses; // 관리비
     private boolean contain_electric; // 관리비에 전기세 포함여부
     private boolean contain_internet;// 인터넷 여부
