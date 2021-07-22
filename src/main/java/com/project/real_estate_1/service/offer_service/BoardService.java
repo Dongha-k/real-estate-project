@@ -63,6 +63,13 @@ public class BoardService {
             boardDto.setMonthly_price(salesOffer.getMonthly_price());
             boardDto.setDeposit(salesOffer.getDeposit());
             boardDtoList.add(boardDto);
+
+            if(salesOffer.getNumOfImg() >= 1){
+                boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
+            }
+            else{
+                boardDto.setTitleImg("");
+            }
         }
         return boardDtoList;
     }

@@ -72,7 +72,6 @@ public class WriterController {
         // id 존재 유무 파악 끝
 
         List<String> urls = new ArrayList<>();
-        System.out.println(fileList.size());
         String imgUrl = "";
         for(MultipartFile file : fileList){
             String fileName = storageService.store(file);

@@ -28,5 +28,6 @@ public class BoardDto {
 
     private Long deposit;
 
+    private String titleImg; // 리스트에서 보여줄 대표 이미지
 
 }
