@@ -45,6 +45,7 @@ public class WriterController {
     public ResponseEntity<SalesOffer> writeHandler(@ModelAttribute OfferDto offerDto,
                                                    @RequestPart List<MultipartFile> fileList){
         System.out.println("글쓰기 요청됨");
+        System.out.println(offerDto.toString());
         HttpHeaders httpHeaders = new HttpHeaders();
         SalesOffer salesOffer = null;
         String userId = offerDto.getUserId(); // 유저 아이디를 받음

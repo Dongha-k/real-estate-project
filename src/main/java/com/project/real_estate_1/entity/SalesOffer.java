@@ -12,6 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "SALE_TYPE")
+@ToString
 public abstract class SalesOffer extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +26,8 @@ public abstract class SalesOffer extends BaseEntity{
     private Integer leaseable_area; // 임대면적(공급면적)
 
     private Long admin_expenses; // 관리비
+
+    private String type;
 
 
     @ElementCollection

@@ -53,12 +53,12 @@ public class WriteService {
         }
         em.flush();
         em.clear();
-
         SalesOffer salesOffer = em.find(SalesOffer.class, idx);
 
         salesOffer.setCreateDate(LocalDateTime.now());
         salesOffer.setLastModifiedDate(LocalDateTime.now());
 
+        salesOffer.setType(offerDto.getType());
 
         salesOffer.setApartmentName(offerDto.getApartmentName());
         salesOffer.setDong(offerDto.getDong());
@@ -75,24 +75,23 @@ public class WriteService {
         if(offerDto.isContain_parking()) salesOffer.getCoverable_service().add(Admin_type.Parking);
 
         // 비율
-        salesOffer.setProvisional_down_pay_per(salesOffer.getProvisional_down_pay_per());
-        salesOffer.setDown_pay_per(salesOffer.getDown_pay_per());
-        salesOffer.setIntermediate_pay_per(salesOffer.getIntermediate_pay_per());
-        salesOffer.setBalance_per(salesOffer.getBalance_per());
+        salesOffer.setProvisional_down_pay_per(offerDto.getProvisional_down_pay_per());
+        salesOffer.setDown_pay_per(offerDto.getDown_pay_per());
+        salesOffer.setIntermediate_pay_per(offerDto.getIntermediate_pay_per());
+        salesOffer.setBalance_per(offerDto.getBalance_per());
 
         // 옵션
-        salesOffer.setMiddle_door(salesOffer.isMiddle_door());
-        salesOffer.setAir_conditioner(salesOffer.isAir_conditioner());
-        salesOffer.setRefrigerator(salesOffer.isRefrigerator());
-        salesOffer.setKimchi_refrigerator(salesOffer.isKimchi_refrigerator());
-        salesOffer.setCloset(salesOffer.isCloset());
+        salesOffer.setMiddle_door(offerDto.isMiddle_door());
+        salesOffer.setAir_conditioner(offerDto.isAir_conditioner());
+        salesOffer.setRefrigerator(offerDto.isRefrigerator());
+        salesOffer.setKimchi_refrigerator(offerDto.isKimchi_refrigerator());
+        salesOffer.setCloset(offerDto.isCloset());
 
-        salesOffer.setShort_description(salesOffer.getShort_description());
-        salesOffer.setDetail_description(salesOffer.getDetail_description());
+        salesOffer.setShort_description(offerDto.getShort_description());
+        salesOffer.setDetail_description(offerDto.getDetail_description());
 
 
         salesOffer.setMember(findMember);
-
         for (String imgUrl : imgUrls) {
             SalesOfferURL salesOfferURL = new SalesOfferURL();
             salesOfferURL.setUrl(imgUrl);

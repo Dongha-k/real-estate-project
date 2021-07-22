@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SalesOfferURL extends BaseEntity{
+public class SalesOfferURL{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
