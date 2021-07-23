@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,9 @@ public class Member extends BaseEntity{
     private String name; // 성명
     private String nickname; // 닉네임
     private String imgUrl; // 이미지 url
+
+    private String idNum; // 주민번호
+
 
     @OneToOne
     @JoinColumn(name = "LICENSE_ID")

@@ -16,4 +16,6 @@ public class JoinDto {
     private String phoneNumber;
     private String name;
     private String nickname;
+    private String idNum;
+
 }

@@ -119,6 +119,10 @@ public class LoginController {
             httpHeaders.add("code", "11");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
+        if(!joinService.checkIdNum(joinDto.getIdNum())){
+            httpHeaders.add("coce", "12");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
         Member newer;
         try{
             newer = joinService.joinUser(joinDto, imgUrl);

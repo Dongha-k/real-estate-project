@@ -58,6 +58,8 @@ public class JoinService{
         member.setName(joinDto.getName());
         member.setPhoneNumber(joinDto.getPhoneNumber());
         member.setNickname(joinDto.getNickname());
+        member.setIdNum(joinDto.getIdNum());
+
         member.setQualified(false);
         member.setImgUrl(imgUrl);
         em.persist(member);
@@ -100,5 +102,15 @@ public class JoinService{
             }
             return true;
         }
+    }
+
+    public boolean checkIdNum(String idNum){
+        if(idNum== null) return false;
+        if(idNum.length() != 6) return false;
+        for(int i = 0 ; i < idNum.length() ; i ++){
+            if(idNum.charAt(i) < '0' || idNum.charAt(i) > '9') return false;
+        }
+        return true;
+
     }
 }
