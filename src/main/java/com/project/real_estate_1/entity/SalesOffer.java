@@ -20,7 +20,8 @@ public class SalesOffer extends BaseEntity{
 
     private boolean reliable; // 신뢰할 수 있는지
 
-    private String apartmentName; // 아파트 명
+    private String residence_type; // 거주지 타입
+    private String residence_name; // 거주지 명
     private String dong; // 동
     private String ho; // 호수
 

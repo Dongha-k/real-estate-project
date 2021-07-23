@@ -1,10 +1,12 @@
 package com.project.real_estate_1.controller;
 
+import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.dto.MemberGetDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.storage.StorageService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,7 +24,8 @@ import java.util.Optional;
 public class MemberController {
     @Autowired
     private MemberService memberService;
-
+    @Autowired
+    private JoinService joinService;
 
     @RequestMapping(value = "/all", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<List<Member>> getAllMembers(){
@@ -66,5 +70,25 @@ public class MemberController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(findMember, httpHeaders, HttpStatus.OK);
     }
-}
 
+    @RequestMapping(value = "/list", method = {RequestMethod.POST, RequestMethod.GET})
+    public ResponseEntity<List<BoardDto>> getMemberList(@RequestParam String userId){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<BoardDto> boardDtoList = null;
+        try{
+            if(!joinService.findUser(userId)){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            boardDtoList = memberService.getListOfMember(userId);
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(boardDtoList, httpHeaders, HttpStatus.OK);
+    }
+}

@@ -1,8 +1,10 @@
 package com.project.real_estate_1.service.member;
 
+import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.dto.CertRegisterDto;
 import com.project.real_estate_1.entity.License;
 import com.project.real_estate_1.entity.Member;
+import com.project.real_estate_1.entity.SalesOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +14,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,5 +78,32 @@ public class MemberService {
         List<Member> QualifiedMembers = em.createQuery("select m from Member m where m.license is not null")
                 .getResultList();
         return QualifiedMembers;
+    }
+
+    public List<BoardDto> getListOfMember(String userId) throws SQLException{
+        Member findMember = findByUserId(userId);
+        List<BoardDto> boardDtoList = new ArrayList<>();
+        for(SalesOffer salesOffer : findMember.getSalesOffer()){
+            BoardDto boardDto = new BoardDto();
+            boardDto.setIdx(salesOffer.getId());
+
+            boardDto.setResidence_name(salesOffer.getResidence_name());
+            boardDto.setResidence_type(salesOffer.getResidence_type());
+
+            boardDto.setDong(salesOffer.getDong());
+            boardDto.setHo(salesOffer.getHo());
+            boardDto.setLeaseable_area(salesOffer.getLeaseable_area());
+            boardDto.setType(salesOffer.getType());
+            boardDto.setSale_price(salesOffer.getSale_price());
+            boardDto.setMonthly_deposit(salesOffer.getMonthly_deposit());
+            boardDto.setMonthly_price(salesOffer.getMonthly_price());
+            boardDto.setDeposit(salesOffer.getDeposit());
+
+            if(salesOffer.getNumOfImg() >= 1) boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
+            else boardDto.setTitleImg("");
+
+            boardDtoList.add(boardDto);
+        }
+        return boardDtoList;
     }
 }

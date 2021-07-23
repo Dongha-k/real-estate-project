@@ -15,11 +15,11 @@ public class RealEstate1Application {
 	public static void main(String[] args) {
 		SpringApplication.run(RealEstate1Application.class, args);
 	}
-	@Bean
-	CommandLineRunner init(StorageService storageService) {
-		return (args) -> {
-			storageService.deleteAll();
-			storageService.init();
-		};
-	}
+//	@Bean
+//	CommandLineRunner init(StorageService storageService) {
+//		return (args) -> {
+//			storageService.deleteAll();
+//			storageService.init();
+//		};
+//	}
 }

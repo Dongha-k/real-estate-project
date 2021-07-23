@@ -31,7 +31,10 @@ public class BoardService {
         for (SalesOffer salesOffer : salesOffers) {
             BoardDto boardDto = new BoardDto();
             boardDto.setIdx(salesOffer.getId());
-            boardDto.setApartmentName(salesOffer.getApartmentName());
+
+            boardDto.setResidence_type(salesOffer.getResidence_type());
+            boardDto.setResidence_name(salesOffer.getResidence_name());
+
             boardDto.setDong(salesOffer.getDong());
             boardDto.setHo(salesOffer.getHo());
             boardDto.setLeaseable_area(salesOffer.getLeaseable_area());
@@ -40,6 +43,12 @@ public class BoardService {
             boardDto.setMonthly_deposit(salesOffer.getMonthly_deposit());
             boardDto.setMonthly_price(salesOffer.getMonthly_price());
             boardDto.setDeposit(salesOffer.getDeposit());
+            if(salesOffer.getNumOfImg() >= 1){
+                boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
+            }
+            else{
+                boardDto.setTitleImg("");
+            }
             boardDtoList.add(boardDto);
         }
         return boardDtoList;
@@ -53,7 +62,10 @@ public class BoardService {
         for (SalesOffer salesOffer : salesOffers) {
             BoardDto boardDto = new BoardDto();
             boardDto.setIdx(salesOffer.getId());
-            boardDto.setApartmentName(salesOffer.getApartmentName());
+
+            boardDto.setResidence_name(salesOffer.getResidence_name());
+            boardDto.setResidence_type(salesOffer.getResidence_type());
+
             boardDto.setDong(salesOffer.getDong());
             boardDto.setHo(salesOffer.getHo());
             boardDto.setLeaseable_area(salesOffer.getLeaseable_area());
@@ -62,7 +74,6 @@ public class BoardService {
             boardDto.setMonthly_deposit(salesOffer.getMonthly_deposit());
             boardDto.setMonthly_price(salesOffer.getMonthly_price());
             boardDto.setDeposit(salesOffer.getDeposit());
-            boardDtoList.add(boardDto);
 
             if(salesOffer.getNumOfImg() >= 1){
                 boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
@@ -70,7 +81,22 @@ public class BoardService {
             else{
                 boardDto.setTitleImg("");
             }
+            boardDtoList.add(boardDto);
         }
         return boardDtoList;
+    }
+
+    public SalesOffer authOffer(Long idx) throws SQLException{
+        SalesOffer salesOffer = em.find(SalesOffer.class, idx);
+        if(salesOffer == null) return null;
+        salesOffer.setReliable(true);
+        return salesOffer;
+    }
+
+    public boolean deleteOffer(Long idx) throws SQLException{
+        SalesOffer salesOffer = em.find(SalesOffer.class, idx);
+        if(salesOffer == null) return false;
+        em.remove(salesOffer);
+        return true;
     }
 }

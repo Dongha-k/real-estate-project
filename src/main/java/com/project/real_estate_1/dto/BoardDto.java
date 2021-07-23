@@ -11,7 +11,10 @@ import lombok.*;
 //아파트, 이름, 동, 호수, 평, 가격
 public class BoardDto {
     private Long idx; // 게시글 번호
-    private String apartmentName; // 아파트 이름
+
+    private String residence_type; // 거주지 타입
+    private String residence_name; // 거주지 명
+
     private String dong; // 동
     private String ho; // 호수
     private Integer leaseable_area; // 임대면적(공급면적)

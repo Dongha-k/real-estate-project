@@ -11,7 +11,9 @@ import lombok.*;
 public class OfferDto {
     private String userId; // 작성자 유저 id
 
-    private String apartmentName; // 아파트 명
+    private String residence_type; // 거주지 타입
+    private String residence_name; // 거주지 명
+
     private String dong; // 동
     private String ho; // 호수
     private Integer net_leaseable_area; // 전용면적

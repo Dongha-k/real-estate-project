@@ -1,5 +1,7 @@
 package com.project.real_estate_1.storage;
 
+import com.project.real_estate_1.entity.ImgNumCount;
+import com.project.real_estate_1.service.ImgCntService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -17,7 +19,8 @@ import java.util.stream.Stream;
 @Service
 public class FileSystemStorageService implements StorageService{
     private final Path rootLocation;
-    private static Integer imgCnt = 0;
+    @Autowired
+    private ImgCntService imgCntService;
     @Autowired
     public FileSystemStorageService(StorageProperties properties){
         this.rootLocation = Paths.get(properties.getLocation());
@@ -29,7 +32,8 @@ public class FileSystemStorageService implements StorageService{
             if(file.isEmpty()){
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
-            String newImgName = (++imgCnt).toString() + ".png";
+
+            String newImgName = (imgCntService.countUp()).toString() + ".png";
             Files.copy(file.getInputStream(), this.rootLocation.resolve(newImgName));
 //            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             return newImgName;
@@ -48,14 +52,14 @@ public class FileSystemStorageService implements StorageService{
         }
     }
 
-    @Override
-    public void init() {
-        try{
-            Files.createDirectory(rootLocation);
-        } catch (IOException e){
-            throw new StorageException("Could not initialize storage", e);
-        }
-    }
+//    @Override
+//    public void init() {
+//        try{
+//            Files.createDirectory(rootLocation);
+//        } catch (IOException e){
+//            throw new StorageException("Could not initialize storage", e);
+//        }
+//    }
 
     @Override
     public Path load(String filename) {
@@ -78,8 +82,8 @@ public class FileSystemStorageService implements StorageService{
             }
     }
 
-    @Override
-    public void deleteAll() {
-        FileSystemUtils.deleteRecursively(rootLocation.toFile());
-    }
+//    @Override
+//    public void deleteAll() {
+//        FileSystemUtils.deleteRecursively(rootLocation.toFile());
+//    }
 }

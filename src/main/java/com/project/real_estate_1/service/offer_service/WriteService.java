@@ -38,8 +38,9 @@ public class WriteService {
         salesOffer.setMonthly_deposit(offerDto.getMonthly_deposit());
         salesOffer.setDeposit(offerDto.getDeposit());
 
+        salesOffer.setResidence_name(offerDto.getResidence_name());
+        salesOffer.setResidence_type(offerDto.getResidence_type());
 
-        salesOffer.setApartmentName(offerDto.getApartmentName());
         salesOffer.setDong(offerDto.getDong());
         salesOffer.setHo(offerDto.getHo());
         salesOffer.setNet_leaseable_area(offerDto.getNet_leaseable_area());
