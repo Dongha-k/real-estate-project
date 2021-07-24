@@ -2,6 +2,7 @@ package com.project.real_estate_1.service.member;
 
 import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.entity.Member;
+import com.project.real_estate_1.entity.MemberState;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,7 +61,7 @@ public class JoinService{
         member.setNickname(joinDto.getNickname());
         member.setIdNum(joinDto.getIdNum());
 
-        member.setQualified(false);
+        member.setQualification(MemberState.NONE);
         member.setImgUrl(imgUrl);
         em.persist(member);
         return member;

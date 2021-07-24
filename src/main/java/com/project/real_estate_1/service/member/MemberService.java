@@ -4,6 +4,7 @@ import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.dto.CertRegisterDto;
 import com.project.real_estate_1.entity.License;
 import com.project.real_estate_1.entity.Member;
+import com.project.real_estate_1.entity.MemberState;
 import com.project.real_estate_1.entity.SalesOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,10 +57,11 @@ public class MemberService {
         String certURL = imgUrl;
         String certNum = certRegisterDto.getCertificationNumber();
 
-        if(findMember.isQualified() == true) return false;
+        if(findMember.getQualification() == MemberState.READY) return false;
+        if(findMember.getQualification() == MemberState.QUALIFIED) return false;
         else {
-            findMember.setQualified(true);
-
+            //REJECTED 상태이거나, NONE 상태인 경우만 신청가능
+            findMember.setQualification(MemberState.READY);
             License license = new License();
             license.setImgURL(certURL);
             license.setCreateDate(LocalDateTime.now());
@@ -106,4 +108,17 @@ public class MemberService {
         }
         return boardDtoList;
     }
+
+    public List<Member> getReadyMember() throws SQLException{
+        return em.createQuery("select m from Member m where m.qualification =?1")
+                .setParameter(1, MemberState.READY)
+                .getResultList();
+    }
+
+    public List<Member> getQualifiedMember() throws SQLException{
+        return em.createQuery("select m from Member m where m.qualification =?1")
+                .setParameter(1, MemberState.QUALIFIED)
+                .getResultList();
+    }
+
 }

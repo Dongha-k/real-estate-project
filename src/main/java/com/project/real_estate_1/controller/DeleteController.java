@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 
 @RestController
-@RequestMapping("/board")
+@RequestMapping("/delete")
 public class DeleteController {
     @Autowired
     public BoardService boardService;
-    @PostMapping("/delete")
+    @PostMapping("/board")
     public ResponseEntity<String> deleteOffer(@RequestParam Long idx){
         HttpHeaders httpHeaders = new HttpHeaders();
         try{

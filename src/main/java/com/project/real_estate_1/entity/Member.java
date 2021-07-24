@@ -24,7 +24,7 @@ public class Member extends BaseEntity{
     private String userId;
     @JsonIgnore
     private String password;
-    private boolean qualified; // 공인중개사 자격이 있는지 여부
+    private MemberState qualification; // 공인중개사 신청 상태
     private String phoneNumber; // 핸드폰 번호
     private String name; // 성명
     private String nickname; // 닉네임

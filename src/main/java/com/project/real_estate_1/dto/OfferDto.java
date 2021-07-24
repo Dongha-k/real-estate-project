@@ -51,6 +51,15 @@ public class OfferDto {
     private boolean kimchi_refrigerator;
     private boolean closet;
 
+    // 매물 자세한 정보
+    private Integer roomNum; // 방갯수
+    private Integer toiletNum; // 화장실 갯수
+    private boolean loft; // 복층여부
+    private Integer parkingNum; // 주차 가능한 차량 댓수
+
+
+
+
     private String short_description; // 짧은 집 설명
     private String detail_description; // 자세한 집 설명
 }

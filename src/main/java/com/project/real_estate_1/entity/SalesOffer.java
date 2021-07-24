@@ -21,7 +21,7 @@ public class SalesOffer extends BaseEntity{
     private boolean reliable; // 신뢰할 수 있는지
 
     private String residence_type; // 거주지 타입
-    private String residence_name; // 거주지 명
+    private String residence_name; // 단지번호
     private String dong; // 동
     private String ho; // 호수
 
@@ -71,6 +71,15 @@ public class SalesOffer extends BaseEntity{
     private Long deposit; // 전세일 때 전세금
 
     private Integer numOfImg; // 이미지 수
+
+    // 매물 자세한 정보
+    private Integer roomNum; // 방갯수
+    private Integer toiletNum; // 화장실 갯수
+    private boolean loft; // 복층여부
+    private Integer parkingNum; // 주차 가능한 차량 댓수
+
+
+
 
     // 글작성한 멤버 정보
     @ManyToOne(fetch = FetchType.EAGER)

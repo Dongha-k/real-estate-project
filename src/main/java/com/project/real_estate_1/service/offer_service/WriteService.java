@@ -68,6 +68,14 @@ public class WriteService {
         salesOffer.setKimchi_refrigerator(offerDto.isKimchi_refrigerator());
         salesOffer.setCloset(offerDto.isCloset());
 
+
+        // 매물 자세한 정보
+        salesOffer.setRoomNum(offerDto.getRoomNum());
+        salesOffer.setToiletNum(offerDto.getToiletNum());
+        salesOffer.setLoft(offerDto.isLoft());
+        salesOffer.setParkingNum(offerDto.getParkingNum());
+
+
         salesOffer.setShort_description(offerDto.getShort_description());
         salesOffer.setDetail_description(offerDto.getDetail_description());
         salesOffer.setNumOfImg(imgUrls.size());

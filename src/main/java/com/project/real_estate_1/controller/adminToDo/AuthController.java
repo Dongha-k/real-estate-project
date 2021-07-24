@@ -1,4 +1,4 @@
-package com.project.real_estate_1.controller;
+package com.project.real_estate_1.controller.adminToDo;
 
 import com.project.real_estate_1.entity.SalesOffer;
 import com.project.real_estate_1.service.offer_service.BoardService;
