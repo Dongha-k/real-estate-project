@@ -101,6 +101,16 @@ public class BoardService {
         return salesOffer;
     }
 
+    public SalesOffer rejectOffer(Long idx) throws SQLException{
+        SalesOffer salesOffer = em.find(SalesOffer.class, idx);
+        if(salesOffer.getOfferState() != OfferState.UNRELIABLE && salesOffer.getOfferState() != OfferState.REJECTED){
+            return null;
+        }
+        salesOffer.setOfferState(OfferState.REJECTED);
+        return salesOffer;
+    }
+
+
     public boolean deleteOffer(Long idx) throws SQLException{
         SalesOffer salesOffer = em.find(SalesOffer.class, idx);
         if(salesOffer == null) return false;

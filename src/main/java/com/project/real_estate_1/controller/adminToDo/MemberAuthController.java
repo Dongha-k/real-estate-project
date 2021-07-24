@@ -66,7 +66,7 @@ public class MemberAuthController {
 
 
 
-    @PostMapping("/rejection")
+    @PostMapping("/rejectMember")
     public ResponseEntity<Member> rejectMember(@RequestParam String userId){
         HttpHeaders httpHeaders = new HttpHeaders();
         Member findMember = null;

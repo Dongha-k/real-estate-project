@@ -45,4 +45,30 @@ public class AuthController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(salesOffer, httpHeaders, HttpStatus.OK);
     }
+
+    @PostMapping("/rejection")
+    public ResponseEntity<SalesOffer> rejection(@RequestParam Long idx){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        SalesOffer salesOffer = null;
+        try{
+            salesOffer = boardService.findContentByIdx(idx);
+            if(salesOffer == null){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            salesOffer = boardService.rejectOffer(idx);
+            if(salesOffer == null){
+                httpHeaders.add("code", "02");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(salesOffer, httpHeaders, HttpStatus.OK);
+    }
 }
