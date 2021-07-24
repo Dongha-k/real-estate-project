@@ -1,5 +1,6 @@
 package com.project.real_estate_1.controller;
 
+import com.project.real_estate_1.controller.util.ServerUtil;
 import com.project.real_estate_1.dto.LoginDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
@@ -8,6 +9,7 @@ import com.project.real_estate_1.dto.ResponseCode;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.storage.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -22,6 +24,12 @@ import java.nio.file.Path;
 import java.sql.SQLException;
 @Controller
 public class LoginController {
+
+    @Value("${defaultProfileURL}")
+    String defaultProfileURL;
+
+
+
     @Autowired
     private JoinService joinService;
     @Autowired
@@ -61,11 +69,14 @@ public class LoginController {
         HttpHeaders httpHeaders = new HttpHeaders();
 
         String imgUrl = "";
-        if(!file.isEmpty()) {
+        if(file != null && !file.isEmpty()) {
             String fileName = storageService.store(file);
             Path path = storageService.load(fileName);
             imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
                     "serveFile", path.getFileName().toString()).build().toUri().toString();
+        }
+        else{
+            imgUrl = defaultProfileURL;
         }
         if(id.trim().isEmpty() || id == null) {
             httpHeaders.add("code", "01");

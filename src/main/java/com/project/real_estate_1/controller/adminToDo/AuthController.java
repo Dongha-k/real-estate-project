@@ -20,15 +20,19 @@ public class AuthController {
     @Autowired
     private BoardService boardService;
 
-
     @PostMapping("/reliable")
     public ResponseEntity<SalesOffer> authorization(@RequestParam Long idx){
         HttpHeaders httpHeaders = new HttpHeaders();
         SalesOffer salesOffer = null;
         try{
-            salesOffer = boardService.authOffer(idx);
+            salesOffer = boardService.findContentByIdx(idx);
             if(salesOffer == null){
                 httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            salesOffer = boardService.authOffer(idx);
+            if(salesOffer == null){
+                httpHeaders.add("code", "02");
                 return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
             }
         } catch (SQLException e){

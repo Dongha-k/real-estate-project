@@ -63,7 +63,6 @@ public class MemberService {
             //REJECTED 상태이거나, NONE 상태인 경우만 신청가능
             findMember.setQualification(MemberState.READY);
             License license = new License();
-            license.setImgURL(certURL);
             license.setCreateDate(LocalDateTime.now());
             license.setLastModifiedDate(LocalDateTime.now());
             license.setSelf_introduction("소개가 등록되어 있지 않습니다.");
@@ -74,12 +73,6 @@ public class MemberService {
             findMember.setLicense(license);
             return true;
         }
-    }
-
-    public List<Member> findAllQualifiedMembers(){
-        List<Member> QualifiedMembers = em.createQuery("select m from Member m where m.license is not null")
-                .getResultList();
-        return QualifiedMembers;
     }
 
     public List<BoardDto> getListOfMember(String userId) throws SQLException{

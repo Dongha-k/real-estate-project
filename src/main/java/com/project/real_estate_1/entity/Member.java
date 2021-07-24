@@ -39,5 +39,5 @@ public class Member extends BaseEntity{
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
-    private List<SalesOffer> salesOffer = new ArrayList<>();
+    private List<SalesOffer> salesOffer = new ArrayList<>(); // 해당 멤버가 올린 매물들
 }

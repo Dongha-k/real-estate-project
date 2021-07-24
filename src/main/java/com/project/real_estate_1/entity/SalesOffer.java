@@ -18,8 +18,21 @@ public class SalesOffer extends BaseEntity{
     @Column(name = "SALESOFFER_ID")
     private Long id;
 
-    private boolean reliable; // 신뢰할 수 있는지
 
+
+
+    @Enumerated(EnumType.ORDINAL)
+    private OfferState offerState;// 매물 상태
+
+    /*
+    REJECTED,       // 0 : 매물 올리기 거절됨
+    UNRELIABLE,     // 1 : 직원으로부터 허위매물인지 확인안됨
+    RELIABLE,       // 2 : 허위매물아닌걸로 판명
+    PROVISIONAL,    // 3 : 가계약금 입금 완료
+    DOWN_PAY,       // 4 : 계약금 입금 완료
+    INTER_PAY,      // 5 : 중도금 입금 완료
+    SOLD_OUT        // 6 : 판매 완료
+    */
     private String residence_type; // 거주지 타입
     private String residence_name; // 단지번호
     private String dong; // 동
@@ -81,10 +94,24 @@ public class SalesOffer extends BaseEntity{
 
 
 
-    // 글작성한 멤버 정보
+    // 매도인 멤버 정보(seller)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MEMBER_ID")
-    private Member member; // FK
+    private Member member;
+
+
+//    // 구매희망자 멤버 정보(buyer)
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "MEMBER_ID")
+//    @Column(nullable = true)
+//    private Member buyer;
+//
+//
+//    // 중개인 멤버 정보
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "MEMBER_ID")
+//    @Column(nullable = true)
+//    private Member intermediary; // 중개인
 
 
     @ElementCollection

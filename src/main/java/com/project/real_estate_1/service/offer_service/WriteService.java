@@ -2,6 +2,7 @@ package com.project.real_estate_1.service.offer_service;
 
 import com.project.real_estate_1.dto.OfferDto;
 import com.project.real_estate_1.entity.Member;
+import com.project.real_estate_1.entity.OfferState;
 import com.project.real_estate_1.entity.SalesOffer;
 import com.project.real_estate_1.service.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,7 +80,7 @@ public class WriteService {
         salesOffer.setShort_description(offerDto.getShort_description());
         salesOffer.setDetail_description(offerDto.getDetail_description());
         salesOffer.setNumOfImg(imgUrls.size());
-        salesOffer.setReliable(false);
+        salesOffer.setOfferState(OfferState.UNRELIABLE);
         salesOffer.setMember(findMember);
         findMember.getSalesOffer().add(salesOffer);
 
