@@ -23,14 +23,14 @@ public class DeleteController {
         try{
             if(!boardService.deleteOffer(idx)){
                 httpHeaders.add("code", "01");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
         return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);

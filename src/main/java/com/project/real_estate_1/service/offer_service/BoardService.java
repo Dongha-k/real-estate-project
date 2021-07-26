@@ -1,6 +1,7 @@
 package com.project.real_estate_1.service.offer_service;
 
-import com.project.real_estate_1.controller.util.ServerUtil;
+import com.project.real_estate_1.controller.util.GetBoardList;
+import com.project.real_estate_1.dto.AuthBoardDto;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.entity.OfferState;
 import com.project.real_estate_1.entity.SalesOffer;
@@ -21,7 +22,7 @@ public class BoardService {
     private EntityManager em;
 
     @Value("${defaultHouseURL}")
-    String defaultHouseURL;
+    private static String defaultHouseURL;
 
 
     public SalesOffer findContentByIdx(Long idx) throws SQLException {
@@ -35,61 +36,20 @@ public class BoardService {
                 .getResultList();
 
         for (SalesOffer salesOffer : salesOffers) {
-            BoardDto boardDto = new BoardDto();
-            boardDto.setIdx(salesOffer.getId());
-
-            boardDto.setResidence_type(salesOffer.getResidence_type());
-            boardDto.setResidence_name(salesOffer.getResidence_name());
-
-            boardDto.setDong(salesOffer.getDong());
-            boardDto.setHo(salesOffer.getHo());
-            boardDto.setLeaseable_area(salesOffer.getLeaseable_area());
-            boardDto.setType(salesOffer.getType());
-            boardDto.setSale_price(salesOffer.getSale_price());
-            boardDto.setMonthly_deposit(salesOffer.getMonthly_deposit());
-            boardDto.setMonthly_price(salesOffer.getMonthly_price());
-            boardDto.setDeposit(salesOffer.getDeposit());
-            if(salesOffer.getNumOfImg() >= 1){
-                boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
-            }
-            else{
-                boardDto.setTitleImg(defaultHouseURL);
-            }
-            boardDtoList.add(boardDto);
+            boardDtoList.add(GetBoardList.convert(salesOffer));
         }
         return boardDtoList;
     }
 
-    public List<BoardDto> getUncheckedListOfOffer() throws SQLException{
-        List<BoardDto> boardDtoList = new ArrayList<>();
+    public List<AuthBoardDto> getUncheckedListOfOffer() throws SQLException{
+        List<AuthBoardDto> authBoardDtoList = new ArrayList<>();
         List<SalesOffer> salesOffers = em.createQuery("select s from SalesOffer s where s.offerState =?1")
                 .setParameter(1, OfferState.UNRELIABLE)
                 .getResultList();
         for (SalesOffer salesOffer : salesOffers) {
-            BoardDto boardDto = new BoardDto();
-            boardDto.setIdx(salesOffer.getId());
-
-            boardDto.setResidence_name(salesOffer.getResidence_name());
-            boardDto.setResidence_type(salesOffer.getResidence_type());
-
-            boardDto.setDong(salesOffer.getDong());
-            boardDto.setHo(salesOffer.getHo());
-            boardDto.setLeaseable_area(salesOffer.getLeaseable_area());
-            boardDto.setType(salesOffer.getType());
-            boardDto.setSale_price(salesOffer.getSale_price());
-            boardDto.setMonthly_deposit(salesOffer.getMonthly_deposit());
-            boardDto.setMonthly_price(salesOffer.getMonthly_price());
-            boardDto.setDeposit(salesOffer.getDeposit());
-
-            if(salesOffer.getNumOfImg() >= 1){
-                boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
-            }
-            else{
-                boardDto.setTitleImg("");
-            }
-            boardDtoList.add(boardDto);
+            authBoardDtoList.add(GetBoardList.convertAuth(salesOffer));
         }
-        return boardDtoList;
+        return authBoardDtoList;
     }
 
     public SalesOffer authOffer(Long idx) throws SQLException{

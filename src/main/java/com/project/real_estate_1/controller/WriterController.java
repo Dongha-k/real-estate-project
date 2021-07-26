@@ -39,7 +39,7 @@ public class WriterController {
 
 
     @PostMapping("/board")
-    public ResponseEntity<SalesOffer> writeHandler(@ModelAttribute OfferDto offerDto,
+    public ResponseEntity<String> writeHandler(@ModelAttribute OfferDto offerDto,
                                                    @RequestPart List<MultipartFile> fileList){
         System.out.println("글쓰기 요청됨");
         System.out.println(offerDto.toString());
@@ -51,23 +51,23 @@ public class WriterController {
         // id 존재 유무 파악
         if(userId.trim().isEmpty() || userId == null) {
             httpHeaders.add("code", "01");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         Member findMember = null;
         try {
             if(!joinService.findUser(userId)){
                 httpHeaders.add("code", "02");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
             else{
                 findMember = memberService.findByUserId(userId);
             }
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         } catch(Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         // id 존재 유무 파악 끝
 
@@ -84,13 +84,13 @@ public class WriterController {
             salesOffer = writeService.write(offerDto, urls);
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
             System.out.println(e.getMessage());
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>(salesOffer, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);
     }
 }

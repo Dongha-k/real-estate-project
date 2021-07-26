@@ -8,6 +8,7 @@ import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.dto.ResponseCode;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.storage.StorageService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
@@ -57,6 +58,7 @@ public class LoginController {
     @RequestMapping("join2")
     public String join2(){return "member/join_revised";}
 
+    @ApiOperation(value = "회원가입", notes = "회원가입하는 컨트롤러")
     @PostMapping (value = "/joinRequest")
     @ResponseBody
     public ResponseEntity<Member> JoinRequest(@ModelAttribute JoinDto joinDto,

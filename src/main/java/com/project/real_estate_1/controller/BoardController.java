@@ -1,5 +1,6 @@
 package com.project.real_estate_1.controller;
 
+import com.project.real_estate_1.dto.AuthBoardDto;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.entity.SalesOffer;
 import com.project.real_estate_1.service.offer_service.BoardService;
@@ -63,11 +64,11 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/uncheckedList", method = {RequestMethod.POST, RequestMethod.GET})
-    public ResponseEntity<List<BoardDto>> getUncheckedContentList(){
+    public ResponseEntity<List<AuthBoardDto>> getUncheckedContentList(){
         HttpHeaders httpHeaders = new HttpHeaders();
-        List<BoardDto> boardDtoList = null;
+        List<AuthBoardDto> authBoardDtoList = null;
         try{
-            boardDtoList = boardService.getUncheckedListOfOffer();
+            authBoardDtoList = boardService.getUncheckedListOfOffer();
         } catch (SQLException e){
             httpHeaders.add("code", "98");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
@@ -76,7 +77,7 @@ public class BoardController {
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>(boardDtoList, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>(authBoardDtoList, httpHeaders, HttpStatus.OK);
     }
 
 
