@@ -28,6 +28,17 @@ public class GetBoardList {
         boardDto.setSale_price(salesOffer.getSale_price());
         boardDto.setMonthly_price(salesOffer.getMonthly_price());
 
+
+        // 7 월 27일 추가
+        boardDto.setSido(salesOffer.getSido());
+        boardDto.setSigungoo(salesOffer.getSigungoo());
+        boardDto.setDongri(salesOffer.getDongri());
+
+        boardDto.setDate(salesOffer.getDate());
+        boardDto.setAllnumber(salesOffer.getAllnumber());
+        boardDto.setParkingnumber(salesOffer.getParkingnumber());
+        // -----------
+
         if(salesOffer.getNumOfImg() >= 1){
             boardDto.setTitleImg(salesOffer.getSalesOfferURLS().get(0));
         }

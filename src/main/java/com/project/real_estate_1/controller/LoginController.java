@@ -65,7 +65,7 @@ public class LoginController {
                                               @RequestPart(required = false) MultipartFile file){
         System.out.println("회원가입 요청됨");
         System.out.println(joinDto.toString());
-        String id = joinDto.getId();
+        String id = joinDto.getUserId();
         String password = joinDto.getPassword();
         String confirmPass = joinDto.getPasswordConfirm();
         HttpHeaders httpHeaders = new HttpHeaders();

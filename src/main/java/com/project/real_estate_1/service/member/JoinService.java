@@ -52,7 +52,7 @@ public class JoinService{
 
     public Member joinUser(JoinDto joinDto, String imgUrl) throws SQLException {
         Member member = new Member();
-        member.setUserId(joinDto.getId());
+        member.setUserId(joinDto.getUserId());
         member.setPassword(joinDto.getPassword());
         member.setCreateDate(LocalDateTime.now());
         member.setLastModifiedDate(LocalDateTime.now());
@@ -60,6 +60,7 @@ public class JoinService{
         member.setPhoneNumber(joinDto.getPhoneNumber());
         member.setNickname(joinDto.getNickname());
         member.setIdNum(joinDto.getIdNum());
+        member.setFirebaseId(joinDto.getFirebaseId());
 
         member.setQualification(MemberState.NONE);
         member.setImgUrl(imgUrl);

@@ -26,4 +26,21 @@ public class BoardDto {
     private Long monthly_price;//월세
 
     private String titleImg; // 리스트에서 보여줄 대표 이미지
+
+
+    // 7월 27일 추가
+
+    // 매물 위치
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+
+    // 매물정보
+    private String date;//사용승인일일(준공일)
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+
+
+
+
 }

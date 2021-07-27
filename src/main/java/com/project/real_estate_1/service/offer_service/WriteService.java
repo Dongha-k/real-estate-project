@@ -84,6 +84,20 @@ public class WriteService {
 
         salesOffer.setMovedate(offerDto.getMovedate());
 
+        salesOffer.setAddress(offerDto.getAddress());
+        salesOffer.setSido(offerDto.getSido());
+        salesOffer.setSigungoo(offerDto.getSigungoo());
+        salesOffer.setDongri(offerDto.getDongri());
+        salesOffer.setDate(offerDto.getDate());
+        salesOffer.setAllnumber(offerDto.getAllnumber());
+        salesOffer.setParkingnumber(offerDto.getParkingnumber());
+        salesOffer.setContact(offerDto.getContact());
+        salesOffer.setPorch_description(offerDto.getPorch_description());
+
+
+
+
+
         salesOffer.setNumOfImg(imgUrls.size());
         salesOffer.setOfferState(OfferState.UNRELIABLE);
         salesOffer.setMember(findMember);

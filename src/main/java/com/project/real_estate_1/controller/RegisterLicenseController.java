@@ -35,7 +35,7 @@ public class RegisterLicenseController {
     }
 
     @PostMapping("/certification")
-    public ResponseEntity<Member> registerCert(@ModelAttribute CertRegisterDto certRegisterDto,
+    public ResponseEntity<String> registerCert(@ModelAttribute CertRegisterDto certRegisterDto,
                                                @RequestPart(required = false) MultipartFile file) {
         HttpHeaders httpHeaders = new HttpHeaders();
         System.out.println("자격 등록 요청됨 : 요청 id -" + certRegisterDto.getUserId());
@@ -49,38 +49,36 @@ public class RegisterLicenseController {
         else{
             // 자격증 사진이 무조건 들어가야함
             httpHeaders.add("code", "01");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
 
         String userId = certRegisterDto.getUserId();
         String certNum = certRegisterDto.getCertificationNumber();
-        Member newQualifiedMember = null;
         if(userId.trim().isEmpty()){
             httpHeaders.add("code", "02");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         if(certNum.trim().isEmpty()) {
             httpHeaders.add("code", "03");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         try{
             if(!joinService.findUser(userId)){
                 httpHeaders.add("code", "04");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
             if(!memberService.registerCertification(certRegisterDto, imgUrl)){
                 httpHeaders.add("code", "05");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
-            newQualifiedMember = memberService.findByUserId(userId);
         } catch(SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>(newQualifiedMember, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);
     }
 }

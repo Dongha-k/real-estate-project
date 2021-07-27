@@ -3,7 +3,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 // 매물 정보
 @Entity
@@ -81,6 +80,20 @@ public class SalesOffer extends BaseEntity{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    // 7월 27일 추가
+
+    private String address;//도로명 주소
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+    private String contact;//관리사무소 연락처
+    private String porch_description; // 현관 설명
+
+
 
 
 //    // 구매희망자 멤버 정보(buyer)

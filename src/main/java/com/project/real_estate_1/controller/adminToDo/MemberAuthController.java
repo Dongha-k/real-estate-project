@@ -31,33 +31,32 @@ public class MemberAuthController {
 
 
     @PostMapping("/qualification")
-    public ResponseEntity<Member> qualifyMember(@RequestParam String userId){
+    public ResponseEntity<String> qualifyMember(@RequestParam String userId){
         HttpHeaders httpHeaders = new HttpHeaders();
         Member findMember = null;
         if(userId == null || userId.trim().isEmpty()){
             httpHeaders.add("code", "01");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         try {
             findMember = memberService.findByUserId(userId);
             if(findMember == null){
                 httpHeaders.add("code", "02");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
             if(!memberAuthService.authorizationMember(findMember.getId())){
                 httpHeaders.add("code", "03");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
-            findMember = memberService.findByUserId(userId);
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>(findMember, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);
     }
 
 
@@ -67,32 +66,31 @@ public class MemberAuthController {
 
 
     @PostMapping("/rejectMember")
-    public ResponseEntity<Member> rejectMember(@RequestParam String userId){
+    public ResponseEntity<String> rejectMember(@RequestParam String userId){
         HttpHeaders httpHeaders = new HttpHeaders();
         Member findMember = null;
         if(userId == null || userId.trim().isEmpty()){
             httpHeaders.add("code", "01");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         try {
             findMember = memberService.findByUserId(userId);
             if(findMember == null){
                 httpHeaders.add("code", "02");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
             if(!memberAuthService.rejectMember(findMember.getId())){
                 httpHeaders.add("code", "03");
-                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
             }
-            findMember = memberService.findByUserId(userId);
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>(findMember, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
     }
 }

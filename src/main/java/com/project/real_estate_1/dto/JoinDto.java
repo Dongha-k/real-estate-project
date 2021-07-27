@@ -10,12 +10,12 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 @ToString
 public class JoinDto {
-    private String id;
+    private String userId;
     private String password;
     private String passwordConfirm;
     private String phoneNumber;
     private String name;
     private String nickname;
     private String idNum;
-
+    private String firebaseId;
 }

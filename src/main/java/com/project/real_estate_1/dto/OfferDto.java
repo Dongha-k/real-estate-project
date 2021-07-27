@@ -55,4 +55,16 @@ public class OfferDto {
     private String toilet2_description;//화장실2 소개
 
     private String movedate;//입주가능일
+
+    // 7월 27일 추가
+
+    private String address;//도로명 주소
+    private String sido;//시도
+    private String sigungoo;//시군구
+    private String dongri;//동리
+    private String date;//사용승인일일
+    private String allnumber;//세대수
+    private String parkingnumber;//총주차대수
+    private String contact;//관리사무소 연락처
+    private String porch_description; // 현관 설명
 }

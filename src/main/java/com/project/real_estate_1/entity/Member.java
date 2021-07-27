@@ -22,6 +22,8 @@ public class Member extends BaseEntity{
 
     @Column(unique = true)
     private String userId;
+    private String firebaseId;
+
     @JsonIgnore
     private String password;
     private MemberState qualification; // 공인중개사 신청 상태
