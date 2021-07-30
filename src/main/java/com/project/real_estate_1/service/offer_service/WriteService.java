@@ -1,5 +1,6 @@
 package com.project.real_estate_1.service.offer_service;
 
+import com.project.real_estate_1.controller.util.GetNow;
 import com.project.real_estate_1.dto.OfferDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.entity.OfferState;
@@ -13,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -30,8 +32,10 @@ public class WriteService {
         System.out.println(offerDto.toString());
         SalesOffer salesOffer = new SalesOffer();
         em.persist(salesOffer);
-        salesOffer.setCreateDate(LocalDateTime.now());
-        salesOffer.setLastModifiedDate(LocalDateTime.now());
+
+
+        salesOffer.setCreateDate(GetNow.getTime());
+        salesOffer.setLastModifiedDate(GetNow.getTime());
 
 
 

@@ -58,6 +58,10 @@ public class LoginController {
     @RequestMapping("join2")
     public String join2(){return "member/join_revised";}
 
+
+
+
+
     @ApiOperation(value = "회원가입", notes = "회원가입하는 컨트롤러")
     @PostMapping (value = "/joinRequest")
     @ResponseBody

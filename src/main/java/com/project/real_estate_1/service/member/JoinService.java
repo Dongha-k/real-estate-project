@@ -1,5 +1,6 @@
 package com.project.real_estate_1.service.member;
 
+import com.project.real_estate_1.controller.util.GetNow;
 import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.entity.MemberState;
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,8 +56,8 @@ public class JoinService{
         Member member = new Member();
         member.setUserId(joinDto.getUserId());
         member.setPassword(joinDto.getPassword());
-        member.setCreateDate(LocalDateTime.now());
-        member.setLastModifiedDate(LocalDateTime.now());
+        member.setCreateDate(GetNow.getTime());
+        member.setLastModifiedDate(GetNow.getTime());
         member.setName(joinDto.getName());
         member.setPhoneNumber(joinDto.getPhoneNumber());
         member.setNickname(joinDto.getNickname());
@@ -113,6 +115,5 @@ public class JoinService{
             if(idNum.charAt(i) < '0' || idNum.charAt(i) > '9') return false;
         }
         return true;
-
     }
 }

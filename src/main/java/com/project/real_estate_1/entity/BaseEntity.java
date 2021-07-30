@@ -13,6 +13,6 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseEntity {
-    private LocalDateTime createDate;
-    private LocalDateTime lastModifiedDate;
+    private String createDate;
+    private String lastModifiedDate;
 }

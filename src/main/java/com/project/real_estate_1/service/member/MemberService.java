@@ -1,6 +1,7 @@
 package com.project.real_estate_1.service.member;
 
 import com.project.real_estate_1.controller.util.GetBoardList;
+import com.project.real_estate_1.controller.util.GetNow;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.dto.CertRegisterDto;
 import com.project.real_estate_1.entity.License;
@@ -15,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -63,8 +65,8 @@ public class MemberService {
             //REJECTED 상태이거나, NONE 상태인 경우만 신청가능
             findMember.setQualification(MemberState.READY);
             License license = new License();
-            license.setCreateDate(LocalDateTime.now());
-            license.setLastModifiedDate(LocalDateTime.now());
+            license.setCreateDate(GetNow.getTime());
+            license.setLastModifiedDate(GetNow.getTime());
             license.setSelf_introduction("소개가 등록되어 있지 않습니다.");
             license.setCertificateURL(certURL);
             license.setCertificationNumber(certNum);
