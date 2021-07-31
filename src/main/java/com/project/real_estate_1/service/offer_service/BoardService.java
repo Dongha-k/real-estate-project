@@ -1,6 +1,6 @@
 package com.project.real_estate_1.service.offer_service;
 
-import com.project.real_estate_1.controller.util.GetBoardList;
+import com.project.real_estate_1.util.GetBoardList;
 import com.project.real_estate_1.dto.AuthBoardDto;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.entity.OfferState;

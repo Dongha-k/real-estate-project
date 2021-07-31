@@ -1,11 +1,9 @@
 package com.project.real_estate_1.controller;
 
-import com.project.real_estate_1.controller.util.ServerUtil;
 import com.project.real_estate_1.dto.LoginDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.dto.JoinDto;
-import com.project.real_estate_1.dto.ResponseCode;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.storage.StorageService;
 import io.swagger.annotations.ApiOperation;
@@ -13,14 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.nio.file.Path;
 import java.sql.SQLException;
 @Controller

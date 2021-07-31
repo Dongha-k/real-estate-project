@@ -1,6 +1,5 @@
-package com.project.real_estate_1.controller.util;
+package com.project.real_estate_1.util;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

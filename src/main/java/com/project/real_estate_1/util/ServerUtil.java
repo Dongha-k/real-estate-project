@@ -1,4 +1,4 @@
-package com.project.real_estate_1.controller.util;
+package com.project.real_estate_1.util;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

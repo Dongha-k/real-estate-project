@@ -21,4 +21,8 @@ public class AuthBoardDto {
 
     private String sellerName;
     private String sellerIdNum;
+
+    // 7 월 31일 추가
+    private String address;//도로명 주소
+    private String residence_name;//아파트 이름
 }

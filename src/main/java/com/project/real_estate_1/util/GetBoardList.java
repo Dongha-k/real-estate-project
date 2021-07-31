@@ -1,8 +1,7 @@
-package com.project.real_estate_1.controller.util;
+package com.project.real_estate_1.util;
 
 import com.project.real_estate_1.dto.AuthBoardDto;
 import com.project.real_estate_1.dto.BoardDto;
-import com.project.real_estate_1.dto.OfferDto;
 import com.project.real_estate_1.entity.SalesOffer;
 import org.springframework.beans.factory.annotation.Value;
 
@@ -65,6 +64,14 @@ public class GetBoardList {
             authBoardDto.setTitleImg(defaultHouseURL);
         }
 
+
+
+//        private String address;//도로명 주소
+//        private String residence_name;//아파트 이름
+
+
+        authBoardDto.setAddress(salesOffer.getAddress());
+        authBoardDto.setResidence_name(salesOffer.getResidence_name());
         authBoardDto.setSellerName(salesOffer.getMember().getName());
         authBoardDto.setSellerIdNum(salesOffer.getMember().getIdNum());
         return authBoardDto;

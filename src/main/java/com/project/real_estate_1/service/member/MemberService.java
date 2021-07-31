@@ -1,7 +1,7 @@
 package com.project.real_estate_1.service.member;
 
-import com.project.real_estate_1.controller.util.GetBoardList;
-import com.project.real_estate_1.controller.util.GetNow;
+import com.project.real_estate_1.util.GetBoardList;
+import com.project.real_estate_1.util.GetNow;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.dto.CertRegisterDto;
 import com.project.real_estate_1.entity.License;
@@ -15,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
