@@ -85,24 +85,25 @@ public class ContractController {
 
     @PostMapping("/provisional-pay")
     public ResponseEntity<String> provisional_payHandler(@RequestParam Long idx){
+        System.out.println("요청한 계약 idx: " + idx);
         HttpHeaders httpHeaders = new HttpHeaders();
         Contract contract = null;
         try{
             contract = contractService.findContractById(idx);
             if(contract == null){
                 httpHeaders.add("code", "01");
-                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
             }
             contractService.afterProvisional_pay(idx);
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);
+        System.out.println("변경성공");
+        return new ResponseEntity<>("true", httpHeaders, HttpStatus.OK);
     }
-
 }
