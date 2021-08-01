@@ -85,7 +85,7 @@ public class GetDto {
         memberShortInfo.setId(member.getId());
         memberShortInfo.setName(member.getName());
         memberShortInfo.setIdNum(member.getIdNum());
-        memberShortInfo.setPhoneNUmber(member.getPhoneNumber());
+        memberShortInfo.setPhonenumber(member.getPhoneNumber());
         return memberShortInfo;
     }
 
@@ -117,7 +117,7 @@ public class GetDto {
         contractReturnDto.setArea(contract.getArea());
 
         contractReturnDto.setSale_prices(contract.getSale_prices());
-        contractReturnDto.setMonthly_price(contract.getMonthly_price());
+        contractReturnDto.setMonthly_prices(contract.getMonthly_prices());
 
         contractReturnDto.setProvisional_down_pay(contract.getProvisional_down_pay());
         contractReturnDto.setDown_pay(contract.getDown_pay());
@@ -130,13 +130,16 @@ public class GetDto {
         contractReturnDto.setId1(contract.getSeller().getId());
         contractReturnDto.setName1(contract.getSeller().getName());
         contractReturnDto.setBirth1(contract.getSeller().getIdNum());
-        contractReturnDto.setPhoneNumber1(contract.getSeller().getPhoneNumber());
+        contractReturnDto.setPhonenumber1(contract.getSeller().getPhoneNumber());
 
 
         contractReturnDto.setId2(contract.getBuyer().getId());
         contractReturnDto.setName2(contract.getBuyer().getName());
         contractReturnDto.setBirth2(contract.getBuyer().getIdNum());
-        contractReturnDto.setPhoneNumber2(contract.getBuyer().getPhoneNumber());
+        contractReturnDto.setPhonenumber2(contract.getBuyer().getPhoneNumber());
+
+        contractReturnDto.setDate(contract.getDate());
+
         contractReturnDto.setEditable(contract.isEditable());
         return contractReturnDto;
     }

@@ -14,7 +14,7 @@ public class ContractReturnDto {
     private String area; // 전용면적 / 공급면적
 
     private String sale_prices;
-    private String monthly_price;
+    private String monthly_prices;
 
     // 금액 (비율 x)
     private String provisional_down_pay;
@@ -28,13 +28,13 @@ public class ContractReturnDto {
     private Long id1; // 매도인 id
     private String name1; // 매도인 이름
     private String birth1; // 매도인 주번 앞자리
-    private String phoneNumber1; // 매도인 폰번호
+    private String phonenumber1; // 매도인 폰번호
 
 
     private Long id2; // 매수인 id
     private String name2; // 매수인 이름
     private String birth2; // 매수인 주번 앞자리
-    private String phoneNumber2; // 매수인 폰번호
+    private String phonenumber2; // 매수인 폰번호
 
     private boolean editable; // 수정가능여부
 

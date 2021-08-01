@@ -11,5 +11,5 @@ public class MemberShortInfo {
     private Long id; // 맴버 id(PK값)
     private String name; // 멤버 이름
     private String idNum; // 주민번호 앞자리
-    private String phoneNUmber; // 핸드폰번호('-'빼고)
+    private String phonenumber; // 핸드폰번호('-'빼고)
 }

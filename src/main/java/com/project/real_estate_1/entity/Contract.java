@@ -21,7 +21,7 @@ public class Contract extends BaseEntity{
     private String purpose; // 아파트 용도
     private String area; // 전용면적 / 공급면적
     private String sale_prices; // 매매가 / 전세금 / 보증금
-    private String monthly_price; // 월세
+    private String monthly_prices; // 월세
 
     // 금액 (비율 x)
     private String provisional_down_pay; // 가계약금
@@ -30,7 +30,7 @@ public class Contract extends BaseEntity{
     private String balance; // 잔금
 
     private String special; // 특약사항
-
+    private String date; // 계약날짜
     private boolean editable; // 계약서 수정가능여부
 
 

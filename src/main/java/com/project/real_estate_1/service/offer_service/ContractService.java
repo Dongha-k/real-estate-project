@@ -30,7 +30,7 @@ public class ContractService {
         contract.setPurpose(contractDto.getPurpose());
         contract.setArea(contractDto.getArea());
         contract.setSale_prices(contractDto.getSale_prices());
-        contract.setMonthly_price(contractDto.getMonthly_price());
+        contract.setMonthly_prices(contractDto.getMonthly_prices());
 
         contract.setProvisional_down_pay(contractDto.getProvisional_down_pay());
         contract.setDown_pay(contractDto.getDown_pay());
@@ -38,6 +38,7 @@ public class ContractService {
         contract.setBalance(contractDto.getBalance());
 
         contract.setSpecial(contractDto.getSpecial());
+        contract.setDate(contractDto.getDate());
         contract.setEditable(true);
 
         SalesOffer salesOffer = em.find(SalesOffer.class, contractDto.getOfferIdx());

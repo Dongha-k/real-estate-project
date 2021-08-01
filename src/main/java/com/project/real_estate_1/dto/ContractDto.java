@@ -16,7 +16,7 @@ public class ContractDto {
     private String purpose; // 아파트 용도
     private String area; // 전용면적 / 공급면
     private String sale_prices;
-    private String monthly_price;
+    private String monthly_prices;
 
     // 금액 (비율 x)
     private String provisional_down_pay;
@@ -28,4 +28,6 @@ public class ContractDto {
 
     private Long id1; // 매도인 id
     private Long id2; // 매수인 id
+
+    private String date; // 계약날짜
 }
