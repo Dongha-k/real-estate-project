@@ -43,6 +43,6 @@ echo "> JAR Name: $JAR_NAME"
 
 
 nohup java -jar \
-    -Dspring.config.location=/home/ec2-user/app/application-real-db.properties,classpath:/application-real.properties \
+    -Dspring.config.location=classpath:/application.properties,classpath:/application-real.properties \
     -Dspring.profiles.active=real \
     $REPOSITORY/$JAR_NAME 2>&1 &
