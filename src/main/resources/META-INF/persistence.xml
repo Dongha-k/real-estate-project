@@ -19,7 +19,7 @@
             <property name="javax.persistence.jdbc.url" value="${spring.datasource.url}"/>
 <!--            <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>-->
 
-            <property name="hibernate.dialect" value="${spring.jpa.properties.hibernate.dialect}"/>
+            <property name="hibernate.dialect" value="${hibernate.dialect}"/>
 <!--            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>-->
 
             <!-- 옵션 -->
