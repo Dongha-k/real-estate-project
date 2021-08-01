@@ -17,22 +17,4 @@
             <property name="hibernate.hbm2ddl.auto" value="create" />
         </properties>
     </persistence-unit>
-    <persistence-unit name="hello">
-        <properties>
-            <!-- 필수 속성 -->
-            <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.user" value="dongha"/>
-            <property name="javax.persistence.jdbc.password" value="5015dPwls"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://real-estate-project.ccxfpdacrwju.ap-northeast-2.rds.amazonaws.com:3306/hello"/>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-            <!-- 옵션 -->
-            <property name="hibernate.show_sql" value="true"/>  <!-- 실행된 커리를 창에 표시해줌-->
-            <property name="hibernate.format_sql" value="true"/> <!-- 실행된 커리를 창에 표시해줌-->
-            <property name="hibernate.use_sql_comments" value="true"/>
-            <property name="hibernate.hbm2ddl.auto" value="create" />
-        </properties>
-    </persistence-unit>
-
-
-
 </persistence>
