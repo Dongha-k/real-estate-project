@@ -37,8 +37,8 @@ public class BoardDto {
 
     // 매물정보
     private String date;//사용승인일일(준공일)
-    private String allnumber;//세대수
-    private String parkingnumber;//총주차대수
+    private Integer allnumber;//세대수
+    private Integer parkingnumber;//총주차대수
 
 
 

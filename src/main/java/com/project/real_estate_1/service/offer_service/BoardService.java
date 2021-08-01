@@ -1,6 +1,7 @@
 package com.project.real_estate_1.service.offer_service;
 
-import com.project.real_estate_1.util.GetBoardList;
+import com.project.real_estate_1.dto.OfferStateForDeal;
+import com.project.real_estate_1.util.GetDto;
 import com.project.real_estate_1.dto.AuthBoardDto;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.entity.OfferState;
@@ -25,8 +26,14 @@ public class BoardService {
     private static String defaultHouseURL;
 
 
-    public SalesOffer findContentByIdx(Long idx) throws SQLException {
+    public SalesOffer findContentByIdx(Long idx) throws SQLException{
         return em.find(SalesOffer.class, idx);
+    }
+
+    public boolean findExistingContentByIdx(Long idx) throws SQLException{
+        SalesOffer salesOffer = em.find(SalesOffer.class, idx);
+        if(salesOffer == null) return false;
+        else return true;
     }
 
     public List<BoardDto> getListOfOffer() throws SQLException{
@@ -36,7 +43,7 @@ public class BoardService {
                 .getResultList();
 
         for (SalesOffer salesOffer : salesOffers) {
-            boardDtoList.add(GetBoardList.convert(salesOffer));
+            boardDtoList.add(GetDto.convert(salesOffer));
         }
         return boardDtoList;
     }
@@ -47,7 +54,7 @@ public class BoardService {
                 .setParameter(1, OfferState.UNRELIABLE)
                 .getResultList();
         for (SalesOffer salesOffer : salesOffers) {
-            authBoardDtoList.add(GetBoardList.convertAuth(salesOffer));
+            authBoardDtoList.add(GetDto.convertAuth(salesOffer));
         }
         return authBoardDtoList;
     }
@@ -77,4 +84,13 @@ public class BoardService {
         em.remove(salesOffer);
         return true;
     }
+
+
+    public OfferStateForDeal getOfferStateForDealByIdx(Long idx) throws SQLException{
+        SalesOffer salesOffer = em.find(SalesOffer.class, idx);
+        if(salesOffer == null) return null;
+        return GetDto.convertSalesOffer(salesOffer);
+    }
+
+
 }

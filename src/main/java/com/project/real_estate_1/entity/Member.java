@@ -42,4 +42,20 @@ public class Member extends BaseEntity{
     @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<SalesOffer> salesOffer = new ArrayList<>(); // 해당 멤버가 올린 매물들
+
+
+
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "buyer") // 본인이 구매진행중인 계약
+    private List<Contract> buyingContract = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "seller") // 본인이 판매진행중인 계약
+    private List<Contract> sellingContract = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "intermediary") // 본인이 중개중인 계약
+    private List<Contract> intermediaryContract = new ArrayList<>();
 }

@@ -1,6 +1,7 @@
 package com.project.real_estate_1.service.member;
 
-import com.project.real_estate_1.util.GetBoardList;
+import com.project.real_estate_1.dto.MemberShortInfo;
+import com.project.real_estate_1.util.GetDto;
 import com.project.real_estate_1.util.GetNow;
 import com.project.real_estate_1.dto.BoardDto;
 import com.project.real_estate_1.dto.CertRegisterDto;
@@ -42,6 +43,17 @@ public class MemberService {
         return findMember.get();
     }
 
+    public MemberShortInfo findByPhoneNum(String phoneNum) throws SQLException{
+        Optional<Member> findMember = em.createQuery("select m from Member m where m.phoneNumber = ?1")
+                .setParameter(1, phoneNum)
+                .getResultList()
+                .stream()
+                .findFirst();
+        return GetDto.convertMember(findMember.get());
+    }
+
+
+
     public List<Member> findAllMember() throws SQLException{
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
@@ -79,7 +91,7 @@ public class MemberService {
         Member findMember = findByUserId(userId);
         List<BoardDto> boardDtoList = new ArrayList<>();
         for(SalesOffer salesOffer : findMember.getSalesOffer()){
-            boardDtoList.add(GetBoardList.convert(salesOffer));
+            boardDtoList.add(GetDto.convert(salesOffer));
         }
         return boardDtoList;
     }
@@ -95,4 +107,10 @@ public class MemberService {
                 .setParameter(1, MemberState.QUALIFIED)
                 .getResultList();
     }
+    public boolean findExistingMemberById(Long idx) throws SQLException{
+        Member findMember = em.find(Member.class, idx);
+        if(findMember == null) return false;
+        else return true;
+    }
+
 }

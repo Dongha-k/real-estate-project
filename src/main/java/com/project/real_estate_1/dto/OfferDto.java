@@ -63,8 +63,8 @@ public class OfferDto {
     private String sigungoo;//시군구
     private String dongri;//동리
     private String date;//사용승인일일
-    private String allnumber;//세대수
-    private String parkingnumber;//총주차대수
+    private Integer allnumber;//세대수
+    private Integer parkingnumber;//총주차대수
     private String contact;//관리사무소 연락처
     private String porch_description; // 현관 설명
 }

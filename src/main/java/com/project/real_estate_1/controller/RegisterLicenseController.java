@@ -1,13 +1,9 @@
 package com.project.real_estate_1.controller;
 
 import com.project.real_estate_1.dto.CertRegisterDto;
-import com.project.real_estate_1.dto.ResponseCode;
-import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.storage.StorageService;
-import org.apache.coyote.Response;
-import org.hibernate.mapping.Join;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.nio.file.Path;
 import java.sql.SQLException;
 

@@ -1,9 +1,9 @@
 package com.project.real_estate_1.service.member;
 
-import com.project.real_estate_1.util.GetNow;
 import com.project.real_estate_1.dto.JoinDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.entity.MemberState;
+import com.project.real_estate_1.util.GetNow;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 @Component
 @Transactional
-public class JoinService{
+public class JoinService {
     @PersistenceContext
     EntityManager em;
 
@@ -24,25 +24,25 @@ public class JoinService{
     public JoinService() {
     }
 
-    public boolean findUser(String userId) throws SQLException{
+    public boolean findUser(String userId) throws SQLException {
         List<Member> findMembers = em.createQuery("select m from Member m")
                 .getResultList();
         for (Member findMember : findMembers) {
-            if(findMember.getUserId().equals(userId)){
+            if (findMember.getUserId().equals(userId)) {
                 return true;
             }
         }
         return false;
     }
-    public boolean findPass(String userId, String userPass) throws SQLException{
+
+    public boolean findPass(String userId, String userPass) throws SQLException {
         List<Member> findMembers = em.createQuery("select m from Member m")
                 .getResultList();
-        for(Member findMember : findMembers){
-            if(findMember.getUserId().equals(userId)){
-                if(findMember.getPassword().equals(userPass)){
+        for (Member findMember : findMembers) {
+            if (findMember.getUserId().equals(userId)) {
+                if (findMember.getPassword().equals(userPass)) {
                     return true;
-                }
-                else{
+                } else {
                     return false;
                 }
             }
@@ -68,7 +68,7 @@ public class JoinService{
         return member;
     }
 
-    public boolean checkId(String id){
+    public boolean checkId(String id) {
 //        String regex = "^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$";
         // 시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
         String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$";// 이메일 정규표현식
@@ -76,7 +76,8 @@ public class JoinService{
         Matcher matcher = pattern.matcher(id);
         return matcher.find();
     }
-    public boolean checkPass(String password){
+
+    public boolean checkPass(String password) {
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
         // 숫자 최소 1자 포함
         // 영문대문자 최소 1자 이상 포함
@@ -87,17 +88,17 @@ public class JoinService{
         return matcher.find();
     }
 
-    public boolean checkPhoneNumber(String phoneNumber){
+    public boolean checkPhoneNumber(String phoneNumber) {
         // 전화번호 ex) 01086149799
-        if(phoneNumber.length() < 10 || phoneNumber.length() > 11){
+        if (phoneNumber.length() < 10 || phoneNumber.length() > 11) {
             System.out.println("전화번호 : 자릿수 초과");
             return false;
-        } else if(phoneNumber.charAt(0)  != '0' || phoneNumber.charAt(1) != '1'){
+        } else if (phoneNumber.charAt(0) != '0' || phoneNumber.charAt(1) != '1') {
             System.out.println("전화번호 : 01로 사직하지 않음");
             return false;
-        } else{
-            for(int i = 2 ; i < phoneNumber.length() ; i ++){
-                if(phoneNumber.charAt(i) < '0' || phoneNumber.charAt(i) >'9'){
+        } else {
+            for (int i = 2; i < phoneNumber.length(); i++) {
+                if (phoneNumber.charAt(i) < '0' || phoneNumber.charAt(i) > '9') {
                     System.out.println("전화번호 : 숫자이외 문자가 전화번호에 포함되어 있음");
                     return false;
                 }
@@ -106,11 +107,11 @@ public class JoinService{
         }
     }
 
-    public boolean checkIdNum(String idNum){
-        if(idNum== null) return false;
-        if(idNum.length() != 6) return false;
-        for(int i = 0 ; i < idNum.length() ; i ++){
-            if(idNum.charAt(i) < '0' || idNum.charAt(i) > '9') return false;
+    public boolean checkIdNum(String idNum) {
+        if (idNum == null) return false;
+        if (idNum.length() != 6) return false;
+        for (int i = 0; i < idNum.length(); i++) {
+            if (idNum.charAt(i) < '0' || idNum.charAt(i) > '9') return false;
         }
         return true;
     }

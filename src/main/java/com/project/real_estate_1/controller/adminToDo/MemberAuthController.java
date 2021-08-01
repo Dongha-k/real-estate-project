@@ -5,7 +5,6 @@ import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
 import com.project.real_estate_1.service.member.authService.MemberAuthService;
-import org.hibernate.mapping.Join;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

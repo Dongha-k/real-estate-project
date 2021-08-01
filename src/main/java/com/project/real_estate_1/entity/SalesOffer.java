@@ -88,26 +88,10 @@ public class SalesOffer extends BaseEntity{
     private String sigungoo;//시군구
     private String dongri;//동리
     private String date;//사용승인일일
-    private String allnumber;//세대수
-    private String parkingnumber;//총주차대수
+    private Integer allnumber;//세대수
+    private Integer parkingnumber;//총주차대수
     private String contact;//관리사무소 연락처
     private String porch_description; // 현관 설명
-
-
-
-
-//    // 구매희망자 멤버 정보(buyer)
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "MEMBER_ID")
-//    @Column(nullable = true)
-//    private Member buyer;
-//
-//
-//    // 중개인 멤버 정보
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "MEMBER_ID")
-//    @Column(nullable = true)
-//    private Member intermediary; // 중개인
 
     private Integer numOfImg;
 
