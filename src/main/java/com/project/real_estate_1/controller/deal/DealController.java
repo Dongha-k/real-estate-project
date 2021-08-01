@@ -28,7 +28,8 @@ public class DealController {
     private BoardService boardService;
 
     @PostMapping("/findMemberByPhoneNum")
-    public ResponseEntity<MemberShortInfo> findMemberByPhoneNumHandler(@RequestParam String phoneNumber){
+    public ResponseEntity<MemberShortInfo> findMemberByPhoneNumHandler(@RequestParam String phonenumber){
+        String phoneNumber = phonenumber;
         HttpHeaders httpHeaders = new HttpHeaders();
         MemberShortInfo memberShortInfo = null;
         try{
