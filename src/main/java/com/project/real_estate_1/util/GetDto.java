@@ -7,6 +7,8 @@ import com.project.real_estate_1.entity.OfferState;
 import com.project.real_estate_1.entity.SalesOffer;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.util.ArrayList;
+
 public class GetDto {
 
     @Value("${defaultHouseURL}")
@@ -143,4 +145,22 @@ public class GetDto {
         contractReturnDto.setEditable(contract.isEditable());
         return contractReturnDto;
     }
+
+    public static ContractListDto convertContractListDto(Contract contract){
+        ContractListDto contractListDto = new ContractListDto();
+        contractListDto.setIdx(contract.getId());
+        contractListDto.setResidence_name(contract.getSalesOffer().getResidence_name());
+        contractListDto.setDong(contract.getSalesOffer().getDong());
+        contractListDto.setHo(contract.getSalesOffer().getHo());
+        contractListDto.setResidence_type(contract.getSalesOffer().getResidence_type());
+        contractListDto.setSale_price(Long.parseLong(contract.getSale_prices()));
+        contractListDto.setSale_type(contract.getSale_type());
+        contractListDto.setMonthly_price(Long.parseLong(contract.getMonthly_prices()));
+        contractListDto.setSido(contract.getSalesOffer().getSido());
+        contractListDto.setSigungoo(contract.getSalesOffer().getSigungoo());
+        contractListDto.setDongri(contract.getSalesOffer().getDongri());
+        contractListDto.setLeaseable_area(contract.getSalesOffer().getLeaseable_area());
+        return contractListDto;
+    }
+
 }

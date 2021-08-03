@@ -1,4 +1,5 @@
 package com.project.real_estate_1.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -98,4 +99,9 @@ public class SalesOffer extends BaseEntity{
     @ElementCollection
     @CollectionTable(name = "SalesOfferURLS", joinColumns = @JoinColumn(name = "SALESOFFER_ID"))
     private List<String> salesOfferURLS = new ArrayList<>();
+
+    @OneToOne(mappedBy = "salesOffer")
+    @JsonIgnore
+    private Contract contract;
+
 }

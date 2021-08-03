@@ -37,6 +37,4 @@ public class ContractReturnDto {
     private String phonenumber2; // 매수인 폰번호
 
     private boolean editable; // 수정가능여부
-
-
 }

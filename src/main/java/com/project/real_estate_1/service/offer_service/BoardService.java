@@ -91,6 +91,4 @@ public class BoardService {
         if(salesOffer == null) return null;
         return GetDto.convertSalesOffer(salesOffer);
     }
-
-
 }

@@ -35,27 +35,27 @@ public class MemberAuthController {
         Member findMember = null;
         if(userId == null || userId.trim().isEmpty()){
             httpHeaders.add("code", "01");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         }
         try {
             findMember = memberService.findByUserId(userId);
             if(findMember == null){
                 httpHeaders.add("code", "02");
-                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
             }
             if(!memberAuthService.authorizationMember(findMember.getId())){
                 httpHeaders.add("code", "03");
-                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
             }
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("true", httpHeaders, HttpStatus.OK);
     }
 
 
@@ -70,26 +70,26 @@ public class MemberAuthController {
         Member findMember = null;
         if(userId == null || userId.trim().isEmpty()){
             httpHeaders.add("code", "01");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         }
         try {
             findMember = memberService.findByUserId(userId);
             if(findMember == null){
                 httpHeaders.add("code", "02");
-                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
             }
             if(!memberAuthService.rejectMember(findMember.getId())){
                 httpHeaders.add("code", "03");
-                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
             }
         } catch (SQLException e){
             httpHeaders.add("code", "98");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         } catch (Exception e){
             httpHeaders.add("code", "99");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+            return new ResponseEntity<>("false", httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
-        return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+        return new ResponseEntity<>("true", httpHeaders, HttpStatus.OK);
     }
 }

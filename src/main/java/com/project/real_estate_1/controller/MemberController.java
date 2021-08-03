@@ -1,10 +1,12 @@
 package com.project.real_estate_1.controller;
 
 import com.project.real_estate_1.dto.BoardDto;
+import com.project.real_estate_1.dto.ContractListDto;
 import com.project.real_estate_1.dto.MemberGetDto;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.service.member.JoinService;
 import com.project.real_estate_1.service.member.MemberService;
+import com.project.real_estate_1.service.offer_service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,9 @@ public class MemberController {
     private MemberService memberService;
     @Autowired
     private JoinService joinService;
+    @Autowired
+    private ContractService contractService;
+
 
     @RequestMapping(value = "/all", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<List<Member>> getAllMembers(){
@@ -85,5 +90,80 @@ public class MemberController {
         }
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(boardDtoList, httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/intermediaryList")
+    public ResponseEntity<List<ContractListDto>> getIntermediaryList(@RequestParam String userId){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<ContractListDto> contractListDtos = null;
+        try{
+            if(userId == null || userId.trim().isEmpty()){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            if(!joinService.findUser(userId)){
+                httpHeaders.add("code", "02");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            contractListDtos = contractService.getIntermediaryList(userId);
+        } catch(SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(contractListDtos, httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/buyingList")
+    public ResponseEntity<List<ContractListDto>> getBuyingList(@RequestParam String userId){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<ContractListDto> contractListDtos = null;
+        try{
+            if(userId == null || userId.trim().isEmpty()){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            if(!joinService.findUser(userId)){
+                httpHeaders.add("code", "02");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            contractListDtos = contractService.getBuyingList(userId);
+        } catch(SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(contractListDtos, httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/sellingList")
+    public ResponseEntity<List<ContractListDto>> getSellingList(@RequestParam String userId){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<ContractListDto> contractListDtos = null;
+        try{
+            if(userId == null || userId.trim().isEmpty()){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            if(!joinService.findUser(userId)){
+                httpHeaders.add("code", "02");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            contractListDtos = contractService.getSellingList(userId);
+        } catch(SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(contractListDtos, httpHeaders, HttpStatus.OK);
     }
 }

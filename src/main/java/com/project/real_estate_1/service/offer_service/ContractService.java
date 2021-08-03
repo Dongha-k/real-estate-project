@@ -1,17 +1,23 @@
 package com.project.real_estate_1.service.offer_service;
 
 import com.project.real_estate_1.dto.ContractDto;
+import com.project.real_estate_1.dto.ContractListDto;
 import com.project.real_estate_1.entity.Contract;
 import com.project.real_estate_1.entity.Member;
 import com.project.real_estate_1.entity.OfferState;
 import com.project.real_estate_1.entity.SalesOffer;
+import com.project.real_estate_1.service.member.MemberService;
+import com.project.real_estate_1.util.GetDto;
 import com.project.real_estate_1.util.GetNow;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @Service
@@ -19,6 +25,9 @@ public class ContractService {
 
     @PersistenceContext
     private EntityManager em;
+
+    @Autowired
+    private MemberService memberService;
 
     // 계약서 작성
     public Long writeContract(ContractDto contractDto) throws SQLException {
@@ -42,7 +51,11 @@ public class ContractService {
         contract.setEditable(true);
 
         SalesOffer salesOffer = em.find(SalesOffer.class, contractDto.getOfferIdx());
+        if(salesOffer.getContract() != null){
+            em.remove(salesOffer.getContract());
+        }
         contract.setSalesOffer(salesOffer);
+        salesOffer.setContract(contract);
 
         contract.setSeller(salesOffer.getMember());
         Member buyer = em.find(Member.class, contractDto.getId2());
@@ -65,4 +78,46 @@ public class ContractService {
         contract.getSalesOffer().setOfferState(OfferState.PROVISIONAL);
     }
 
+    public List<ContractListDto> getContractList() throws SQLException{
+        List<Contract> contractList = em.createQuery("select c from Contract c where c.salesOffer.offerState =?1")
+                .setParameter(1, OfferState.PROVISIONAL)
+                .getResultList();
+        List<ContractListDto> contractListDtos = new ArrayList<>();
+        for (Contract contract : contractList) contractListDtos.add(GetDto.convertContractListDto(contract));
+        return contractListDtos;
+    }
+
+    public List<ContractListDto> getIntermediaryList(String userId) throws SQLException{
+        Member findMember = memberService.findByUserId(userId);
+        List<Contract> contractList = findMember.getIntermediaryContract();
+        List<ContractListDto> contractListDtos = new ArrayList<>();
+        for (Contract contract : contractList) {
+            contractListDtos.add(GetDto.convertContractListDto(contract));
+        }
+        return contractListDtos;
+    }
+    public List<ContractListDto> getBuyingList(String userId) throws SQLException{
+        Member findMember = memberService.findByUserId(userId);
+        List<Contract> contractList = findMember.getBuyingContract();
+        List<ContractListDto> contractListDtos = new ArrayList<>();
+        for (Contract contract : contractList) {
+            contractListDtos.add(GetDto.convertContractListDto(contract));
+        }
+        return contractListDtos;
+    }
+    public List<ContractListDto> getSellingList(String userId) throws SQLException{
+        Member findMember = memberService.findByUserId(userId);
+        List<Contract> contractList = findMember.getSellingContract();
+        List<ContractListDto> contractListDtos = new ArrayList<>();
+        for (Contract contract : contractList) {
+            contractListDtos.add(GetDto.convertContractListDto(contract));
+        }
+        return contractListDtos;
+    }
+    public boolean connectionWithIntermediary(Long idx, String userId) throws SQLException{
+        Contract contract = em.find(Contract.class, idx);
+        if(contract.getIntermediary() != null) return false; // 이미 배정된 중개인이 있음
+        contract.setIntermediary(em.find(Member.class, memberService.findByUserId(userId).getId()));
+        return true;
+    }
 }

@@ -80,7 +80,11 @@ public class MemberService {
             license.setSelf_introduction("소개가 등록되어 있지 않습니다.");
             license.setCertificateURL(certURL);
 //            license.setCertificationNumber(certNum);
+            if(findMember.getLicense() != null){
+                em.remove(findMember.getLicense());
+            }
             license.setMember(findMember);
+            findMember.setLicense(license);
             em.persist(license);
             findMember.setLicense(license);
             return true;
