@@ -35,7 +35,7 @@ public class RegisterLicenseController {
         HttpHeaders httpHeaders = new HttpHeaders();
         System.out.println("자격 등록 요청됨 : 요청 id -" + certRegisterDto.getUserId());
         String imgUrl = "";
-        if(!file.isEmpty()) {
+        if(file != null && !file.isEmpty()) {
             String fileName = storageService.store(file);
             Path path = storageService.load(fileName);
             imgUrl = MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
@@ -48,15 +48,15 @@ public class RegisterLicenseController {
         }
 
         String userId = certRegisterDto.getUserId();
-        String certNum = certRegisterDto.getCertificationNumber();
-        if(userId.trim().isEmpty()){
+//        String certNum = certRegisterDto.getCertificationNumber();
+        if(userId == null || userId.trim().isEmpty()){
             httpHeaders.add("code", "02");
             return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
-        if(certNum.trim().isEmpty()) {
-            httpHeaders.add("code", "03");
-            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
-        }
+//        if(certNum.trim().isEmpty()) {
+//            httpHeaders.add("code", "03");
+//            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+//        }
         try{
             if(!joinService.findUser(userId)){
                 httpHeaders.add("code", "04");

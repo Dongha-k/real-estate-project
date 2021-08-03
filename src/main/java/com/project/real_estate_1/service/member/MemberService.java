@@ -67,7 +67,7 @@ public class MemberService {
         System.out.println("findMember = " + findMember);
         System.out.println(certRegisterDto.toString());
         String certURL = imgUrl;
-        String certNum = certRegisterDto.getCertificationNumber();
+
 
         if(findMember.getQualification() == MemberState.READY) return false;
         if(findMember.getQualification() == MemberState.QUALIFIED) return false;
@@ -79,7 +79,7 @@ public class MemberService {
             license.setLastModifiedDate(GetNow.getTime());
             license.setSelf_introduction("소개가 등록되어 있지 않습니다.");
             license.setCertificateURL(certURL);
-            license.setCertificationNumber(certNum);
+//            license.setCertificationNumber(certNum);
             license.setMember(findMember);
             em.persist(license);
             findMember.setLicense(license);

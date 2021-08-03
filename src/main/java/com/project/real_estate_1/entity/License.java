@@ -18,7 +18,7 @@ public class License extends BaseEntity{
     @Column(name = "LICENSE_ID")
     private Long id;
     private String certificateURL; // 자격증 사진 주소
-    private String certificationNumber; // 자격증 번호
+//    private String certificationNumber; // 자격증 번호
     private String self_introduction; // 자기소개
 
     @JsonIgnore

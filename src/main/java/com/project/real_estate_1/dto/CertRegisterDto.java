@@ -10,5 +10,5 @@ import lombok.*;
 @ToString
 public class CertRegisterDto {
     private String userId; // 유저 아이디
-    private String certificationNumber; // 자격증 번호
+//    private String certificationNumber; // 자격증 번호
 }
