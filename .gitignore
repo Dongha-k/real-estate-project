@@ -39,3 +39,4 @@ out/
 
 resources/META-INF/persistence.xml
 resources/application-dev.properties
+build.gradle
