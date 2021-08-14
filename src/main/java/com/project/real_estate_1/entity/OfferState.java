@@ -7,5 +7,5 @@ public enum OfferState {
     PROVISIONAL, // 3 : 가계약금 입금 완료
     DOWN_PAY, // 4 : 계약금 입금 완료
     INTER_PAY, // 5 : 중도금 입금 완료
-    SOLD_OUT // 6 : 판매 완료
+    SOLD_OUT // 7 : 판매 완료 (잔금 입금 완료)
 }

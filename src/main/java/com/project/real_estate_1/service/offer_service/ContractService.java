@@ -120,4 +120,23 @@ public class ContractService {
         contract.setIntermediary(em.find(Member.class, memberService.findByUserId(userId).getId()));
         return true;
     }
+
+    public boolean provisionalToDown(Long idx) throws SQLException{
+        Contract contract = em.find(Contract.class, idx);
+        if(contract.getSalesOffer().getOfferState() != OfferState.PROVISIONAL) return false;
+        contract.getSalesOffer().setOfferState(OfferState.DOWN_PAY);
+        return true;
+    }
+    public boolean downToInter(Long idx) throws SQLException{
+        Contract contract = em.find(Contract.class, idx);
+        if(contract.getSalesOffer().getOfferState() != OfferState.DOWN_PAY) return false;
+        contract.getSalesOffer().setOfferState(OfferState.INTER_PAY);
+        return true;
+    }
+    public boolean interToSoldOut(Long idx) throws SQLException{
+        Contract contract = em.find(Contract.class, idx);
+        if(contract.getSalesOffer().getOfferState() != OfferState.INTER_PAY) return false;
+        contract.getSalesOffer().setOfferState(OfferState.SOLD_OUT);
+        return true;
+    }
 }

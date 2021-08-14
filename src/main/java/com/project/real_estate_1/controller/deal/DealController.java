@@ -73,6 +73,4 @@ public class DealController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(offerStateForDeal, httpHeaders, HttpStatus.OK);
     }
-
-
 }
