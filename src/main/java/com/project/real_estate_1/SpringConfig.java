@@ -9,5 +9,4 @@ import javax.sql.DataSource;
 
 @Configuration
 public class SpringConfig {
-
 }
