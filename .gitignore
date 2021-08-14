@@ -35,8 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-
-
-resources/META-INF/persistence.xml
-resources/application-dev.properties
-build.gradle
