@@ -29,13 +29,13 @@ public class FileSystemStorageService implements StorageService{
 
     @Override
     public String store(MultipartFile file){
-        System.out.println(rootLocation.toString());
         try{
             if(file.isEmpty()){
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
             }
 
             String newImgName = (imgCntService.countUp()).toString() + ".png";
+            if(newImgName.equals("1.png")) initialization();
             Files.copy(file.getInputStream(), this.rootLocation.resolve(newImgName));
 //            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
             return newImgName;
@@ -54,14 +54,13 @@ public class FileSystemStorageService implements StorageService{
         }
     }
 
-//    @Override
-//    public void init() {
-//        try{
-//            Files.createDirectory(rootLocation);
-//        } catch (IOException e){
-//            throw new StorageException("Could not initialize storage", e);
-//        }
-//    }
+    private void initialization() {
+        try{
+            Files.createDirectory(rootLocation);
+        } catch (IOException e){
+            throw new StorageException("Could not initialize storage", e);
+        }
+    }
 
     @Override
     public Path load(String filename) {
