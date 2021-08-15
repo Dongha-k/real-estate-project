@@ -11,7 +11,7 @@ git pull
 
 echo "> 프로젝트 Build 시작"
 
-./gradlew build --exclude-task test
+./gradlew build --exclude-task test --stacktrace
 
 echo "> step1 디렉토리로 이동"
 
