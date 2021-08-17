@@ -139,4 +139,10 @@ public class ContractService {
         contract.getSalesOffer().setOfferState(OfferState.SOLD_OUT);
         return true;
     }
+
+    public boolean deleteContract(Long idx) throws SQLException{
+        Contract contract = em.find(Contract.class, idx);
+        em.remove(contract);
+        return true;
+    }
 }
