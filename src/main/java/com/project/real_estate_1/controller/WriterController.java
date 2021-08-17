@@ -39,6 +39,9 @@ public class WriterController {
     }
 
 
+
+
+    // 안씀!
     @PostMapping(value = "/board", consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE })
     public ResponseEntity<String> writeHandler(@ModelAttribute OfferDto offerDto,
                                                    @RequestPart(value="fileList") List<MultipartFile> fileList){
