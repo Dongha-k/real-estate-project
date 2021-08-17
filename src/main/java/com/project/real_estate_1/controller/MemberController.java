@@ -75,9 +75,13 @@ public class MemberController {
     public ResponseEntity<List<BoardDto>> getMemberList(@RequestParam String userId){
         HttpHeaders httpHeaders = new HttpHeaders();
         List<BoardDto> boardDtoList = null;
+        if(userId == null || userId.isEmpty()){
+            httpHeaders.add("code", "01");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
         try{
             if(!joinService.findUser(userId)){
-                httpHeaders.add("code", "01");
+                httpHeaders.add("code", "02");
                 return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
             }
             boardDtoList = memberService.getListOfMember(userId);
