@@ -1,5 +1,6 @@
 package com.project.real_estate_1.dto;
 
+import com.project.real_estate_1.entity.OfferState;
 import lombok.*;
 
 @Getter
@@ -20,4 +21,7 @@ public class ContractListDto {
     private String sigungoo; // 시 / 군 / 구
     private String dongri;
     private Double leaseable_area;
+
+
+    private OfferState offerState;
 }

@@ -48,6 +48,8 @@ public class GetDto {
         else{
             boardDto.setTitleImg(defaultHouseURL);
         }
+
+        boardDto.setOfferState(salesOffer.getOfferState());
         return boardDto;
     }
 
@@ -160,6 +162,7 @@ public class GetDto {
         contractListDto.setSigungoo(contract.getSalesOffer().getSigungoo());
         contractListDto.setDongri(contract.getSalesOffer().getDongri());
         contractListDto.setLeaseable_area(contract.getSalesOffer().getLeaseable_area());
+        contractListDto.setOfferState(contract.getSalesOffer().getOfferState());
         return contractListDto;
     }
 

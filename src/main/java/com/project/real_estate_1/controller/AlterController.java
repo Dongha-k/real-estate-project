@@ -47,7 +47,7 @@ public class AlterController {
             @RequestParam String userId,
             @RequestParam String alterType,
             @RequestParam(required = false) String nickName,
-            @RequestParam(required = false) String phoneNum,
+            @RequestParam(required = false) String birth,
             @RequestParam(required = false) String existingPass,
             @RequestParam(required = false) String newPass,
             @RequestParam(required = false) String confirmPass
@@ -61,7 +61,7 @@ public class AlterController {
             httpHeaders.add("code", "02");
             return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
-        if(!(alterType.equals("nick") || alterType.equals("phone") || alterType.equals("pass"))){
+        if(!(alterType.equals("nick") || alterType.equals("birth") || alterType.equals("pass"))){
             httpHeaders.add("code", "03"); // 수정 타입이 형식에 안맞음
             return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
         }
@@ -81,18 +81,18 @@ public class AlterController {
                     return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
                     // 닉네임 변경에 실패함
                 }
-            } else if(alterType.equals("phone")){
-                if(phoneNum == null || nickName.isEmpty()){
+            } else if(alterType.equals("birth")){
+                if(birth == null || birth.isEmpty()){
                     httpHeaders.add("code", "07");
                     return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
-                    // 전화번호가 빈문자열이거나 null임
+                    // 생년월일이 빈문자열이거나 null임
                 }
-                if(!joinService.checkPhoneNumber(phoneNum)){
+                if(!joinService.checkIdNum(birth)){
                     httpHeaders.add("code", "08");
                     return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
-                    // 전화번호 형식이 안맞음
+                    // 생년월일 형식이 안맞음
                 }
-                if(!alterService.changePhone(userId, phoneNum)){
+                if(!alterService.changeBirth(userId, birth)){
                     httpHeaders.add("code", "09");
                     return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
                     // 전화번호 변경 실패

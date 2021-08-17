@@ -43,6 +43,16 @@ public class AlterService {
         return true;
     }
 
+    public boolean changeBirth(String userId, String newBirth) throws SQLException{
+        Member findMember = memberService.findByUserId(userId);
+        if(findMember == null) return false;
+        Member pMember = em.find(Member.class, findMember.getId());
+        if(pMember == null) return false;
+        pMember.setIdNum(newBirth);
+        return true;
+    }
+
+
     public boolean changeImg(String userId, String newImgUrl) throws SQLException{
         Member findMember = memberService.findByUserId(userId);
         if(findMember == null) return false;

@@ -1,5 +1,6 @@
 package com.project.real_estate_1.dto;
 
+import com.project.real_estate_1.entity.OfferState;
 import io.swagger.models.auth.In;
 import lombok.*;
 
@@ -41,6 +42,6 @@ public class BoardDto {
     private Integer parkingnumber;//총주차대수
 
 
-
+    private OfferState offerState;
 
 }
