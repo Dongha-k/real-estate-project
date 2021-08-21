@@ -154,9 +154,9 @@ public class GetDto {
         contractListDto.setDong(contract.getSalesOffer().getDong());
         contractListDto.setHo(contract.getSalesOffer().getHo());
         contractListDto.setResidence_type(contract.getSalesOffer().getResidence_type());
-        contractListDto.setSale_price(Long.parseLong(contract.getSale_prices()));
+        contractListDto.setSale_price(contract.getSale_prices());
         contractListDto.setSale_type(contract.getSale_type());
-        contractListDto.setMonthly_price(Long.parseLong(contract.getMonthly_prices()));
+        contractListDto.setMonthly_price(contract.getMonthly_prices());
         contractListDto.setSido(contract.getSalesOffer().getSido());
         contractListDto.setSigungoo(contract.getSalesOffer().getSigungoo());
         contractListDto.setDongri(contract.getSalesOffer().getDongri());
