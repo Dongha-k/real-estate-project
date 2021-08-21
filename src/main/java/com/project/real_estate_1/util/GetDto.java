@@ -163,6 +163,7 @@ public class GetDto {
         contractListDto.setLeaseable_area(contract.getSalesOffer().getLeaseable_area());
         contractListDto.setOfferState(contract.getSalesOffer().getOfferState());
         contractListDto.setCreateDate(contract.getCreateDate());
+        contractListDto.setAddress(contract.getSalesOffer().getAddress());
         if(contract.getSalesOffer().getNumOfImg() < 1) contractListDto.setTitleImg(defaultHouseURL);
         else contractListDto.setTitleImg(contract.getSalesOffer().getSalesOfferURLS().get(0));
         return contractListDto;
