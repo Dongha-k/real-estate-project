@@ -158,8 +158,10 @@ public class ContractService {
         return true;
     }
 
-    public boolean deleteContract(Long idx) throws SQLException{
+    public boolean deleteContract(Long idx) throws SQLException{ // 계약 파기
         Contract contract = em.find(Contract.class, idx);
+        if(contract == null) return false;
+        contract.getSalesOffer().setOfferState(OfferState.RELIABLE);
         em.remove(contract);
         return true;
     }

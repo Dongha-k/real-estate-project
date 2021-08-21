@@ -15,6 +15,7 @@ public class ContractDto {
     private String address_apartment; // 도로명 주소 + 아파트 이름
     private String purpose; // 아파트 용도
     private String area; // 전용면적 / 공급면
+
     private String sale_prices;
     private String monthly_prices;
 

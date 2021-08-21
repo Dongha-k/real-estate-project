@@ -57,13 +57,39 @@ public class ContractController {
         } catch (SQLException e){
             httpHeaders.add("code", "98");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
-
         } catch (Exception e){
             httpHeaders.add("code", "99");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(contractIdx, httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/delete")
+    public ResponseEntity<String> deleteHandler(@RequestParam Long idx){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        Contract contract = null;
+        try{
+            contract = contractService.findContractById(idx);
+            if(contract == null){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                // 계약 존재 x
+            }
+            if(!contractService.deleteContract(idx)){
+                httpHeaders.add("code", "98");
+                return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+                // 삭제 불가 (서버오류)
+            }
+        } catch (SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>("failed", httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>("success", httpHeaders, HttpStatus.OK);
     }
 
     @PostMapping("/get")

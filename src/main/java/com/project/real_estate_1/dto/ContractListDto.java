@@ -25,6 +25,7 @@ public class ContractListDto implements Comparable<ContractListDto>{
     private OfferState offerState;
     private String titleImg;
 
+
     @Override
     public int compareTo(ContractListDto contractListDto) {
         return this.createDate.compareTo(contractListDto.createDate);
