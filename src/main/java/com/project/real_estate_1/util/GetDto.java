@@ -141,7 +141,7 @@ public class GetDto {
         contractReturnDto.setName2(contract.getBuyer().getName());
         contractReturnDto.setBirth2(contract.getBuyer().getIdNum());
         contractReturnDto.setPhonenumber2(contract.getBuyer().getPhoneNumber());
-
+        contractReturnDto.setAddress(contract.getSalesOffer().getAddress());
         contractReturnDto.setDate(contract.getDate());
         contractReturnDto.setEditable(contract.isEditable());
         return contractReturnDto;

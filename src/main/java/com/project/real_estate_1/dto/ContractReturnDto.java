@@ -13,8 +13,8 @@ public class ContractReturnDto {
     private String purpose; // 아파트 용도
     private String area; // 전용면적 / 공급면적
 
-    private String sale_prices;
-    private String monthly_prices;
+    private Long sale_prices;
+    private Long monthly_prices;
 
     // 금액 (비율 x)
     private String provisional_down_pay;
@@ -35,6 +35,9 @@ public class ContractReturnDto {
     private String name2; // 매수인 이름
     private String birth2; // 매수인 주번 앞자리
     private String phonenumber2; // 매수인 폰번호
+
+    private String address; // 도로명 주소
+
 
     private boolean editable; // 수정가능여부
 }
