@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ec2-user/app/step1
+REPOSITORY=/home/ubuntu/app/step1
 PROJECT_NAME=real-estate-project
 
 cd $REPOSITORY/$PROJECT_NAME/
