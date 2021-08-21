@@ -10,7 +10,8 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @ToString
-public class BoardDto {
+public class BoardDto implements Comparable<BoardDto>{
+    private String createDate; // 생성일
     private Long idx; // 게시글 번호
     private String residence_name; // 아파트 이름
 
@@ -43,5 +44,11 @@ public class BoardDto {
 
 
     private OfferState offerState;
+
+    @Override
+    public int compareTo(BoardDto boardDto) {
+        return this.createDate.compareTo(boardDto.createDate);
+    }
+
 
 }

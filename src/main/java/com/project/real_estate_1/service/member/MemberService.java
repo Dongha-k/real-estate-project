@@ -17,6 +17,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -79,7 +80,7 @@ public class MemberService {
             license.setLastModifiedDate(GetNow.getTime());
             license.setSelf_introduction("소개가 등록되어 있지 않습니다.");
             license.setCertificateURL(certURL);
-//            license.setCertificationNumber(certNum);
+
             if(findMember.getLicense() != null){
                 em.remove(findMember.getLicense());
             }
@@ -97,6 +98,8 @@ public class MemberService {
         for(SalesOffer salesOffer : findMember.getSalesOffer()){
             boardDtoList.add(GetDto.convert(salesOffer));
         }
+        Collections.sort(boardDtoList, Collections.reverseOrder());
+
         return boardDtoList;
     }
 

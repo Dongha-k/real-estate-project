@@ -16,7 +16,7 @@ public class GetDto {
 
     public static BoardDto convert(SalesOffer salesOffer){
         BoardDto boardDto = new BoardDto();
-
+        boardDto.setCreateDate(salesOffer.getCreateDate());
         boardDto.setIdx(salesOffer.getId());
         boardDto.setResidence_name(salesOffer.getResidence_name());
 
