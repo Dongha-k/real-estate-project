@@ -121,7 +121,6 @@ public class ContractController {
             httpHeaders.add("code", "98");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         } catch (Exception e){
-
             httpHeaders.add("code", "99");
             return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
         }

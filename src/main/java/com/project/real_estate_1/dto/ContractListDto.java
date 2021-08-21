@@ -8,7 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ContractListDto {
+public class ContractListDto implements Comparable<ContractListDto>{
+    private String createDate; // 계약 생성일
     private Long idx; // 계약 idx
     private String residence_name; // 거주지 명
     private Integer dong; // 동
@@ -21,7 +22,11 @@ public class ContractListDto {
     private String sigungoo; // 시 / 군 / 구
     private String dongri;
     private Double leaseable_area;
-
-
     private OfferState offerState;
+    private String titleImg;
+
+    @Override
+    public int compareTo(ContractListDto contractListDto) {
+        return this.createDate.compareTo(contractListDto.createDate);
+    }
 }

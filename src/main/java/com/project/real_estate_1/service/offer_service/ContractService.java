@@ -17,6 +17,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Transactional
@@ -83,7 +85,8 @@ public class ContractService {
                 .setParameter(1, OfferState.PROVISIONAL)
                 .getResultList();
         List<ContractListDto> contractListDtos = new ArrayList<>();
-        for (Contract contract : contractList) contractListDtos.add(GetDto.convertContractListDto(contract));
+        for (Contract contract : contractList)
+            contractListDtos.add(GetDto.convertContractListDto(contract));
         return contractListDtos;
     }
 
@@ -113,6 +116,21 @@ public class ContractService {
             contractListDtos.add(GetDto.convertContractListDto(contract));
         }
         return contractListDtos;
+    }
+
+    public List<ContractListDto> getAllList(String userId) throws SQLException{
+        Member findMember = memberService.findByUserId(userId);
+        List<Contract> buyingList = findMember.getBuyingContract();
+        List<Contract> sellingList = findMember.getSellingContract();
+        List<ContractListDto> allList = new ArrayList<>();
+        for (Contract contract : buyingList) {
+            allList.add(GetDto.convertContractListDto(contract));
+        }
+        for (Contract contract : sellingList) {
+            allList.add(GetDto.convertContractListDto(contract));
+        }
+        Collections.sort(allList, Collections.reverseOrder());
+        return allList;
     }
     public boolean connectionWithIntermediary(Long idx, String userId) throws SQLException{
         Contract contract = em.find(Contract.class, idx);

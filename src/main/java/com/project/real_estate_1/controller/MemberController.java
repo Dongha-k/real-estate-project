@@ -170,4 +170,29 @@ public class MemberController {
         httpHeaders.add("code", "00");
         return new ResponseEntity<>(contractListDtos, httpHeaders, HttpStatus.OK);
     }
+
+    @PostMapping("/allContract")
+    public ResponseEntity<List<ContractListDto>> getAllContract(@RequestParam String userId){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        List<ContractListDto> contractListDtos = null;
+        try{
+            if(userId == null || userId.trim().isEmpty()){
+                httpHeaders.add("code", "01");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            if(!joinService.findUser(userId)){
+                httpHeaders.add("code", "02");
+                return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+            }
+            contractListDtos = contractService.getAllList(userId);
+        } catch(SQLException e){
+            httpHeaders.add("code", "98");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        } catch (Exception e){
+            httpHeaders.add("code", "99");
+            return new ResponseEntity<>(null, httpHeaders, HttpStatus.OK);
+        }
+        httpHeaders.add("code", "00");
+        return new ResponseEntity<>(contractListDtos, httpHeaders, HttpStatus.OK);
+    }
 }

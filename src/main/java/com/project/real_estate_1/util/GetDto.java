@@ -143,7 +143,6 @@ public class GetDto {
         contractReturnDto.setPhonenumber2(contract.getBuyer().getPhoneNumber());
 
         contractReturnDto.setDate(contract.getDate());
-
         contractReturnDto.setEditable(contract.isEditable());
         return contractReturnDto;
     }
@@ -163,6 +162,9 @@ public class GetDto {
         contractListDto.setDongri(contract.getSalesOffer().getDongri());
         contractListDto.setLeaseable_area(contract.getSalesOffer().getLeaseable_area());
         contractListDto.setOfferState(contract.getSalesOffer().getOfferState());
+        contractListDto.setCreateDate(contract.getCreateDate());
+        if(contract.getSalesOffer().getNumOfImg() < 1) contractListDto.setTitleImg(defaultHouseURL);
+        else contractListDto.setTitleImg(contract.getSalesOffer().getSalesOfferURLS().get(0));
         return contractListDto;
     }
 
