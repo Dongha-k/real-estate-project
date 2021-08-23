@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 @Service
@@ -29,6 +30,7 @@ public class FileSystemStorageService implements StorageService{
 
     @Override
     public String store(MultipartFile file){
+        UUID uuid = UUID.randomUUID();
         try{
             if(file.isEmpty()){
                 throw new StorageException("Failed to store empty file " + file.getOriginalFilename());
@@ -36,8 +38,8 @@ public class FileSystemStorageService implements StorageService{
 
             String newImgName = (imgCntService.countUp()).toString() + ".png";
             if(newImgName.equals("1.png")) initialization();
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(newImgName));
-//            Files.copy(file.getInputStream(), this.rootLocation.resolve(file.getOriginalFilename()));
+//            Files.copy(file.getInputStream(), this.rootLocation.resolve(newImgName));
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(uuid.toString() + "_" + file.getOriginalFilename()));
             return newImgName;
         } catch (IOException e){
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
