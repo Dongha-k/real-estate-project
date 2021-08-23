@@ -39,8 +39,9 @@ public class FileSystemStorageService implements StorageService{
             String newImgName = (imgCntService.countUp()).toString() + ".png";
             if(newImgName.equals("1.png")) initialization();
 //            Files.copy(file.getInputStream(), this.rootLocation.resolve(newImgName));
-            Files.copy(file.getInputStream(), this.rootLocation.resolve(uuid.toString() + "_" + file.getOriginalFilename()));
-            return newImgName;
+            String randomName = uuid.toString() + "_" + file.getOriginalFilename();
+            Files.copy(file.getInputStream(), this.rootLocation.resolve(randomName));
+            return randomName;
         } catch (IOException e){
             throw new StorageException("Failed to store file " + file.getOriginalFilename(), e);
         }
