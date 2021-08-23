@@ -85,9 +85,10 @@ public class ContractService {
                 .setParameter(1, OfferState.PROVISIONAL)
                 .getResultList();
         List<ContractListDto> contractListDtos = new ArrayList<>();
-        for (Contract contract : contractList)
-            if(contract.getIntermediary() != null) continue;
+        for (Contract contract : contractList) {
+            if (contract.getIntermediary() != null) continue;
             contractListDtos.add(GetDto.convertContractListDto(contract));
+        }
         return contractListDtos;
     }
 
